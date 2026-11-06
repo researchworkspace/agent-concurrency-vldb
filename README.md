@@ -4,7 +4,8 @@ This repository holds the code, prompts, derived results and instructions for th
 Experiment, Analysis & Benchmark paper *Passing Sequential Tests, Broken Under Load: Isolation
 Anomalies in LLM-Written Database Code*. The raw results (generated programs, model answers,
 loop records and every concurrency check) are in a separate data archive,
-`agent-concurrency-vldb-data.tar.gz` (see [Data](#data)).
+`agent-concurrency-vldb-data.tar.gz`, on Zenodo:
+[doi:10.5281/zenodo.23998872](https://doi.org/10.5281/zenodo.23998872) (see [Data](#data)).
 
 The study generates request handlers with six open coding models, checks each handler for
 functional correctness, then runs it under concurrent requests on PostgreSQL 16.15 and MySQL 9.7.4
@@ -80,6 +81,8 @@ folder's `backend.json` records.
 ## Quick checks
 
 ```bash
+curl -L -o agent-concurrency-vldb-data.tar.gz \
+  "https://zenodo.org/records/23998872/files/agent-concurrency-vldb-data.tar.gz?download=1"
 tar -xzf agent-concurrency-vldb-data.tar.gz            # creates agent-concurrency-vldb-data/
 DATA=$PWD/agent-concurrency-vldb-data
 (cd "$DATA" && shasum -a 256 -c SHA256SUMS --quiet)   # archive integrity
@@ -262,7 +265,8 @@ unchanged (`results/c2-report.json`).
 
 ## Data
 
-`agent-concurrency-vldb-data/` holds four folders, with the layout the scripts expect:
+The archive ([doi:10.5281/zenodo.23998872](https://doi.org/10.5281/zenodo.23998872), 19.7 MB,
+CC BY 4.0) unpacks to `agent-concurrency-vldb-data/`, which holds four folders, with the layout the scripts expect:
 
 | Folder | Contents |
 | --- | --- |
