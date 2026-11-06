@@ -75,8 +75,9 @@ Software versions (from the plans):
 | ctfd | CTFd 3.8.9 (commit `5f345fb`) with its pinned requirements and psycopg2-binary 2.9.10 |
 | gen | Python 3.11, torch 2.14.1 (CUDA 12.6), transformers 5.20.2, accelerate 1.15.0, kernels 0.17.2, mistral-common 1.12.0, huggingface-hub 2.2.0, safetensors 0.8.0 |
 
-C0's two generation runs used torch 2.6.0+cu124 and transformers 4.57.1, as each generation
-folder's `backend.json` records.
+C0's two generation runs (the Qwen coders' single-shot answers) used torch 2.6.0+cu124,
+transformers 4.57.1 and an input limit of 8,192 tokens (`c0-plan.json`), as each generation
+folder's `backend.json` records; their repair loops used the gen environment.
 
 ## Quick checks
 
