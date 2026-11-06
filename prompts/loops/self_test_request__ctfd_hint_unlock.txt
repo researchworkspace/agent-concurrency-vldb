@@ -1,0 +1,135 @@
+Your module passes the application's sequential tests. In production, `unlock_hint` is called by many concurrent HTTP requests. Write a concurrency test for it: a Python function `test_concurrency()` that raises `AssertionError` when `unlock_hint` misbehaves under concurrent requests.
+
+The test runs in a harness that already provides these functions (do not import or define them):
+
+- `fresh_database()`: empties the tables below (and rows of other tables that refer to them). The harness calls it before every run; call it again if your test needs a clean state.
+- `db_execute(sql, params=None)`: runs one SQL statement on the application's PostgreSQL database and returns the result rows as a list of tuples (an empty list for statements that return no rows). Use it to insert the rows your test needs and to inspect the database afterwards. Parameters use the `%s` placeholder.
+- `run_concurrently(requests)`: `requests` is a list of at most 16 dicts of keyword arguments for `unlock_hint`. Each request is sent to your current module by its own client process, and all requests are released at the same moment. It returns a list with, for each request in order, the dict that `unlock_hint` returned, or `{"exception": "<ExceptionClass>: <message>"}` if it raised.
+
+The tables are:
+
+```sql
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    oauth_id INTEGER,
+    name VARCHAR(128),
+    password VARCHAR(128),
+    email VARCHAR(128),
+    type VARCHAR(80),
+    secret VARCHAR(128),
+    website VARCHAR(128),
+    affiliation VARCHAR(128),
+    country VARCHAR(32),
+    hidden BOOLEAN,
+    banned BOOLEAN,
+    verified BOOLEAN,
+    team_id INTEGER,
+    created TIMESTAMP,
+    language VARCHAR(32),
+    bracket_id INTEGER,
+    change_password BOOLEAN,
+    UNIQUE (email),
+    UNIQUE (id, oauth_id),
+    UNIQUE (oauth_id),
+    FOREIGN KEY (bracket_id) REFERENCES brackets(id) ON DELETE SET NULL,
+    FOREIGN KEY (team_id) REFERENCES teams(id)
+);
+
+CREATE TABLE challenges (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(80),
+    description TEXT,
+    max_attempts INTEGER,
+    value INTEGER,
+    category VARCHAR(80),
+    type VARCHAR(80),
+    state VARCHAR(80) NOT NULL,
+    requirements JSON,
+    connection_info TEXT,
+    next_id INTEGER,
+    attribution TEXT,
+    logic VARCHAR(80) NOT NULL,
+    initial INTEGER,
+    minimum INTEGER,
+    decay INTEGER,
+    function VARCHAR(32),
+    position INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (next_id) REFERENCES challenges(id) ON DELETE SET NULL
+);
+
+CREATE TABLE flags (
+    id SERIAL PRIMARY KEY,
+    challenge_id INTEGER,
+    type VARCHAR(80),
+    content TEXT,
+    data TEXT,
+    FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE
+);
+
+CREATE TABLE hints (
+    id SERIAL PRIMARY KEY,
+    type VARCHAR(80),
+    challenge_id INTEGER,
+    content TEXT,
+    cost INTEGER,
+    requirements JSON,
+    title VARCHAR(80),
+    FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE
+);
+
+CREATE TABLE submissions (
+    id SERIAL PRIMARY KEY,
+    challenge_id INTEGER,
+    user_id INTEGER,
+    team_id INTEGER,
+    ip VARCHAR(46),
+    provided TEXT,
+    type VARCHAR(32),
+    date TIMESTAMP,
+    FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE solves (
+    id INTEGER PRIMARY KEY,
+    challenge_id INTEGER,
+    user_id INTEGER,
+    team_id INTEGER,
+    UNIQUE (challenge_id, team_id),
+    UNIQUE (challenge_id, user_id),
+    FOREIGN KEY (challenge_id) REFERENCES challenges(id) ON DELETE CASCADE,
+    FOREIGN KEY (id) REFERENCES submissions(id) ON DELETE CASCADE,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE awards (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    team_id INTEGER,
+    name VARCHAR(80),
+    description TEXT,
+    date TIMESTAMP,
+    value INTEGER,
+    category VARCHAR(80),
+    icon TEXT,
+    requirements JSON,
+    type VARCHAR(80) DEFAULT 'standard',
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE unlocks (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    team_id INTEGER,
+    target INTEGER,
+    date TIMESTAMP,
+    type VARCHAR(32),
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
+
+The harness runs your test 10 times. Respond with the test in a single ```python code block that defines `test_concurrency()`.

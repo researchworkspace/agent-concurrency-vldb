@@ -1,0 +1,33 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Doctor(Base):
+    __tablename__ = "doctors"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    name: Mapped[str] = mapped_column(Text)
+    on_call: Mapped[bool] = mapped_column(Boolean)
+```
+
+Import them with `from app_models import Doctor`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `leave_shift(doctor_id)`. At least one doctor must remain on call at all times. If the doctor is not on call, return {"ok": False, "error": "not_on_call"}. If no other doctor is on call, return {"ok": False, "error": "last_on_call"}. Otherwise take the doctor off call and return {"ok": True}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def leave_shift(Session, doctor_id) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

@@ -1,0 +1,25 @@
+asgiref @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_asgiref_1788014230/work
+babel==2.18.0
+Django @ file:///home/conda/feedstock_root/build_artifacts/django_1787574375249/work
+django-extra-views==0.16.0
+django-haystack==3.4.0
+django-oscar==4.2.1
+django-phonenumber-field==8.5.0
+django-tables2==2.7.0
+django-treebeard==7.0.3
+django-widget-tweaks==1.5.1
+factory_boy==3.3.3
+Faker==40.44.0
+greenlet @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_greenlet_1789809463/work
+mysqlclient @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_mysqlclient_1791224153/work
+packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1785888127/work
+phonenumbers==9.0.42
+pillow==13.0.0
+psycopg @ file:///home/conda/feedstock_root/build_artifacts/psycopg-split_1727685909342/work/psycopg
+psycopg-c @ file:///home/conda/feedstock_root/build_artifacts/psycopg-split_1727685909342/work/psycopg-c
+purl==1.6
+six==1.17.0
+sorl-thumbnail==12.11.0
+SQLAlchemy @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_sqlalchemy_1789931141/work
+sqlparse @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_sqlparse_1786961786/work
+typing_extensions @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_typing_extensions_1783002732/work

@@ -1,0 +1,84 @@
+Your module passes the application's sequential tests. In production, `apply_voucher` is called by many concurrent HTTP requests. Write a concurrency test for it: a Python function `test_concurrency()` that raises `AssertionError` when `apply_voucher` misbehaves under concurrent requests.
+
+The test runs in a harness that already provides these functions (do not import or define them):
+
+- `fresh_database()`: empties the tables below (and rows of other tables that refer to them). The harness calls it before every run; call it again if your test needs a clean state.
+- `db_execute(sql, params=None)`: runs one SQL statement on the application's PostgreSQL database and returns the result rows as a list of tuples (an empty list for statements that return no rows). Use it to insert the rows your test needs and to inspect the database afterwards. Parameters use the `%s` placeholder.
+- `run_concurrently(requests)`: `requests` is a list of at most 16 dicts of keyword arguments for `apply_voucher`. Each request is sent to your current module by its own client process, and all requests are released at the same moment. It returns a list with, for each request in order, the dict that `apply_voucher` returned, or `{"exception": "<ExceptionClass>: <message>"}` if it raised.
+
+The tables are:
+
+```sql
+CREATE TABLE auth_user (
+    id SERIAL PRIMARY KEY,
+    password VARCHAR(128) NOT NULL,
+    last_login TIMESTAMPTZ,
+    is_superuser BOOLEAN NOT NULL,
+    username VARCHAR(150) NOT NULL,
+    first_name VARCHAR(150) NOT NULL,
+    last_name VARCHAR(150) NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    is_staff BOOLEAN NOT NULL,
+    is_active BOOLEAN NOT NULL,
+    date_joined TIMESTAMPTZ NOT NULL,
+    UNIQUE (username)
+);
+
+CREATE TABLE voucher_voucher (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(128) NOT NULL,
+    code VARCHAR(128) NOT NULL,
+    usage VARCHAR(128) NOT NULL,
+    start_datetime TIMESTAMPTZ NOT NULL,
+    end_datetime TIMESTAMPTZ NOT NULL,
+    num_basket_additions INTEGER NOT NULL,
+    num_orders INTEGER NOT NULL,
+    total_discount NUMERIC(12, 2) NOT NULL,
+    date_created TIMESTAMPTZ NOT NULL,
+    voucher_set_id INTEGER,
+    UNIQUE (code),
+    UNIQUE (name),
+    FOREIGN KEY (voucher_set_id) REFERENCES voucher_voucherset(id)
+);
+
+CREATE TABLE order_order (
+    id SERIAL PRIMARY KEY,
+    number VARCHAR(128) NOT NULL,
+    currency VARCHAR(12) NOT NULL,
+    total_incl_tax NUMERIC(12, 2) NOT NULL,
+    total_excl_tax NUMERIC(12, 2) NOT NULL,
+    shipping_incl_tax NUMERIC(12, 2) NOT NULL,
+    shipping_excl_tax NUMERIC(12, 2) NOT NULL,
+    shipping_method VARCHAR(128) NOT NULL,
+    shipping_code VARCHAR(128) NOT NULL,
+    status VARCHAR(100) NOT NULL,
+    guest_email VARCHAR(254) NOT NULL,
+    date_placed TIMESTAMPTZ NOT NULL,
+    basket_id INTEGER,
+    billing_address_id INTEGER,
+    shipping_address_id INTEGER,
+    site_id INTEGER,
+    user_id INTEGER,
+    shipping_tax_code VARCHAR(64),
+    analytics_tracked BOOLEAN NOT NULL,
+    UNIQUE (number),
+    FOREIGN KEY (basket_id) REFERENCES basket_basket(id),
+    FOREIGN KEY (billing_address_id) REFERENCES order_billingaddress(id),
+    FOREIGN KEY (shipping_address_id) REFERENCES order_shippingaddress(id),
+    FOREIGN KEY (site_id) REFERENCES django_site(id),
+    FOREIGN KEY (user_id) REFERENCES auth_user(id)
+);
+
+CREATE TABLE voucher_voucherapplication (
+    id SERIAL PRIMARY KEY,
+    date_created TIMESTAMPTZ NOT NULL,
+    order_id INTEGER NOT NULL,
+    user_id INTEGER,
+    voucher_id INTEGER NOT NULL,
+    FOREIGN KEY (voucher_id) REFERENCES voucher_voucher(id),
+    FOREIGN KEY (order_id) REFERENCES order_order(id),
+    FOREIGN KEY (user_id) REFERENCES auth_user(id)
+);
+```
+
+The harness runs your test 10 times. Respond with the test in a single ```python code block that defines `test_concurrency()`.

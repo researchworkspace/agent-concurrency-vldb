@@ -1,0 +1,40 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Product(Base):
+    __tablename__ = "products"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    name: Mapped[str] = mapped_column(Text)
+    stock: Mapped[int] = mapped_column(Integer)
+
+
+class Order(Base):
+    __tablename__ = "orders"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    product_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("products.id"))
+    quantity: Mapped[int] = mapped_column(Integer)
+```
+
+Import them with `from app_models import Product, Order`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `purchase(product_id, quantity)`. If the product's stock is at least `quantity`, create an order for that quantity, reduce the product's stock by `quantity`, and return {"ok": True, "order_id": <new order id>}. Otherwise change nothing and return {"ok": False, "error": "insufficient_stock"}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def purchase(Session, product_id, quantity) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models. The endpoint receives many concurrent requests in production; make sure it stays correct under concurrent execution.
+
+Respond with the complete module in a single ```python code block.

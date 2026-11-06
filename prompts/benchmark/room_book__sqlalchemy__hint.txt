@@ -1,0 +1,40 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Room(Base):
+    __tablename__ = "rooms"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    name: Mapped[str] = mapped_column(Text)
+
+
+class Booking(Base):
+    __tablename__ = "bookings"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    room_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("rooms.id"))
+    start_hour: Mapped[int] = mapped_column(Integer)
+    end_hour: Mapped[int] = mapped_column(Integer)
+```
+
+Import them with `from app_models import Room, Booking`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `book(room_id, start_hour, end_hour)`. A booking occupies the half-open interval [start_hour, end_hour), and bookings of the same room must not overlap. If the room does not exist, return {"ok": False, "error": "unknown_room"}. If the interval overlaps an existing booking of the room, return {"ok": False, "error": "conflict"}. Otherwise record the booking and return {"ok": True, "booking_id": <new booking id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def book(Session, room_id, start_hour, end_hour) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models. The endpoint receives many concurrent requests in production; make sure it stays correct under concurrent execution.
+
+Respond with the complete module in a single ```python code block.

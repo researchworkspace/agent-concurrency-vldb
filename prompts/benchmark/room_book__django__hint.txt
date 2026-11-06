@@ -1,0 +1,41 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses Django 5.2 with PostgreSQL through psycopg 3, with the default database settings (autocommit on, ATOMIC_REQUESTS off). The models already exist in the module `shop.models`:
+
+```python
+from django.db import models
+
+
+class Room(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.TextField()
+
+    class Meta:
+        db_table = "rooms"
+        managed = False
+
+
+class Booking(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    room = models.ForeignKey(Room, on_delete=models.PROTECT, db_column="room_id")
+    start_hour = models.IntegerField()
+    end_hour = models.IntegerField()
+
+    class Meta:
+        db_table = "bookings"
+        managed = False
+```
+
+Import them with `from shop.models import Room, Booking`. The view calls the function once per HTTP request.
+
+Task: Implement `book(room_id, start_hour, end_hour)`. A booking occupies the half-open interval [start_hour, end_hour), and bookings of the same room must not overlap. If the room does not exist, return {"ok": False, "error": "unknown_room"}. If the interval overlaps an existing booking of the room, return {"ok": False, "error": "conflict"}. Otherwise record the booking and return {"ok": True, "booking_id": <new booking id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def book(room_id, start_hour, end_hour) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models. The endpoint receives many concurrent requests in production; make sure it stays correct under concurrent execution.
+
+Respond with the complete module in a single ```python code block.

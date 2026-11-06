@@ -1,0 +1,41 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses Django 5.2 with PostgreSQL through psycopg 3, with the default database settings (autocommit on, ATOMIC_REQUESTS off). The models already exist in the module `shop.models`:
+
+```python
+from django.db import models
+
+
+class Product(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.TextField()
+    stock = models.IntegerField()
+
+    class Meta:
+        db_table = "products"
+        managed = False
+
+
+class Order(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT, db_column="product_id")
+    quantity = models.IntegerField()
+
+    class Meta:
+        db_table = "orders"
+        managed = False
+```
+
+Import them with `from shop.models import Product, Order`. The view calls the function once per HTTP request.
+
+Task: Implement `purchase(product_id, quantity)`. If the product's stock is at least `quantity`, create an order for that quantity, reduce the product's stock by `quantity`, and return {"ok": True, "order_id": <new order id>}. Otherwise change nothing and return {"ok": False, "error": "insufficient_stock"}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def purchase(product_id, quantity) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

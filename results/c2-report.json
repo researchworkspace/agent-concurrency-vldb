@@ -1,0 +1,766 @@
+{
+ "draft_thresholds": false,
+ "h8": {
+  "shares": {
+   "loop_seq": {
+    "n": 625,
+    "k": 456,
+    "share": 0.7296,
+    "lower": 0.6934536129766281,
+    "upper": 0.762941231775769
+   },
+   "loop_conc": {
+    "n": 558,
+    "k": 130,
+    "share": 0.23297491039426524,
+    "lower": 0.19979868750139143,
+    "upper": 0.26980257582766376
+   },
+   "loop_self": {
+    "n": 540,
+    "k": 217,
+    "share": 0.40185185185185185,
+    "lower": 0.3613343538294872,
+    "upper": 0.4437559013010313
+   }
+  },
+  "closure": 0.6599508462376393,
+  "interval": [
+   0.5856094313828455,
+   0.736726200347703
+  ],
+  "holds": true
+ },
+ "h9": {
+  "n": 235,
+  "k": 29,
+  "share": 0.12340425531914893,
+  "lower": 0.08731212037296887,
+  "upper": 0.17161051044227477,
+  "holds": true
+ },
+ "h10": {
+  "n": 414,
+  "k": 0,
+  "share": 0.0,
+  "lower": 8.59387578457627e-19,
+  "upper": 0.009193580004197992,
+  "holds": true
+ },
+ "h11": {
+  "rules": {
+   "oscar_voucher_single": {
+    "n": 43,
+    "k": 42,
+    "share": 0.9767441860465116,
+    "lower": 0.8794100644159603,
+    "upper": 0.9958829127712101
+   },
+   "oscar_voucher_customer": {
+    "n": 43,
+    "k": 42,
+    "share": 0.9767441860465116,
+    "lower": 0.8794100644159603,
+    "upper": 0.9958829127712101
+   },
+   "ctfd_attempts": {
+    "n": 33,
+    "k": 33,
+    "share": 1.0,
+    "lower": 0.8957300009841286,
+    "upper": 1.0
+   },
+   "ctfd_hint_unlock": {
+    "n": 31,
+    "k": 31,
+    "share": 1.0,
+    "lower": 0.889744602991977,
+    "upper": 1.0
+   }
+  },
+  "meeting": [
+   "oscar_voucher_single",
+   "oscar_voucher_customer",
+   "ctfd_attempts",
+   "ctfd_hint_unlock"
+  ],
+  "holds": true
+ },
+ "h12": {
+  "postgresql": {
+   "n": 579,
+   "k": 579,
+   "share": 1.0,
+   "lower": 0.9934090843697543,
+   "upper": 1.0,
+   "retry_restored": {
+    "n": 579,
+    "k": 328,
+    "share": 0.5664939550949913,
+    "lower": 0.5258216388746879,
+    "upper": 0.6062897592193899
+   },
+   "holds": true
+  },
+  "mysql": {
+   "n": 595,
+   "k": 595,
+   "share": 1.0,
+   "lower": 0.9935851821474213,
+   "upper": 1.0,
+   "retry_restored": {
+    "n": 595,
+    "k": 323,
+    "share": 0.5428571428571428,
+    "lower": 0.5026823759010127,
+    "upper": 0.5824820682830518
+   },
+   "holds": true
+  },
+  "holds": true
+ },
+ "e2_descriptive": {
+  "postgresql": {
+   "single:plain:oscar_voucher_single": {
+    "n": 43,
+    "k": 42,
+    "share": 0.9767441860465116,
+    "lower": 0.8794100644159603,
+    "upper": 0.9958829127712101
+   },
+   "single:plain:oscar_voucher_customer": {
+    "n": 43,
+    "k": 42,
+    "share": 0.9767441860465116,
+    "lower": 0.8794100644159603,
+    "upper": 0.9958829127712101
+   },
+   "single:plain:ctfd_attempts": {
+    "n": 33,
+    "k": 33,
+    "share": 1.0,
+    "lower": 0.8957300009841286,
+    "upper": 1.0
+   },
+   "single:plain:ctfd_hint_unlock": {
+    "n": 31,
+    "k": 31,
+    "share": 1.0,
+    "lower": 0.889744602991977,
+    "upper": 1.0
+   },
+   "single:hint:oscar_voucher_single": {
+    "n": 41,
+    "k": 29,
+    "share": 0.7073170731707317,
+    "lower": 0.5552053215279548,
+    "upper": 0.823908124468579
+   },
+   "single:hint:oscar_voucher_customer": {
+    "n": 41,
+    "k": 29,
+    "share": 0.7073170731707317,
+    "lower": 0.5552053215279548,
+    "upper": 0.823908124468579
+   },
+   "single:hint:ctfd_attempts": {
+    "n": 33,
+    "k": 33,
+    "share": 1.0,
+    "lower": 0.8957300009841286,
+    "upper": 1.0
+   },
+   "single:hint:ctfd_hint_unlock": {
+    "n": 24,
+    "k": 24,
+    "share": 1.0,
+    "lower": 0.862023793448672,
+    "upper": 0.9999999999999998
+   },
+   "loop_seq:plain:oscar_voucher_single": {
+    "n": 44,
+    "k": 43,
+    "share": 0.9772727272727273,
+    "lower": 0.8819229018613074,
+    "upper": 0.9959767479844505
+   },
+   "loop_seq:plain:oscar_voucher_customer": {
+    "n": 44,
+    "k": 43,
+    "share": 0.9772727272727273,
+    "lower": 0.8819229018613074,
+    "upper": 0.9959767479844505
+   },
+   "loop_seq:plain:ctfd_attempts": {
+    "n": 44,
+    "k": 44,
+    "share": 1.0,
+    "lower": 0.9197043950765085,
+    "upper": 0.9999999999999998
+   },
+   "loop_seq:plain:ctfd_hint_unlock": {
+    "n": 48,
+    "k": 48,
+    "share": 1.0,
+    "lower": 0.9258998692515198,
+    "upper": 1.0
+   },
+   "loop_conc:plain:oscar_voucher_single": {
+    "n": 43,
+    "k": 2,
+    "share": 0.046511627906976744,
+    "lower": 0.012849259978574553,
+    "upper": 0.1545549812336292
+   },
+   "loop_conc:plain:oscar_voucher_customer": {
+    "n": 43,
+    "k": 2,
+    "share": 0.046511627906976744,
+    "lower": 0.012849259978574553,
+    "upper": 0.1545549812336292
+   },
+   "loop_conc:plain:ctfd_attempts": {
+    "n": 31,
+    "k": 5,
+    "share": 0.16129032258064516,
+    "lower": 0.07092624398491121,
+    "upper": 0.3263435410850399
+   },
+   "loop_conc:plain:ctfd_hint_unlock": {
+    "n": 23,
+    "k": 12,
+    "share": 0.5217391304347826,
+    "lower": 0.32962737204441833,
+    "upper": 0.7076284270692741
+   },
+   "loop_self:plain:oscar_voucher_single": {
+    "n": 37,
+    "k": 21,
+    "share": 0.5675675675675675,
+    "lower": 0.40914180972226494,
+    "upper": 0.7132828082261852
+   },
+   "loop_self:plain:oscar_voucher_customer": {
+    "n": 37,
+    "k": 21,
+    "share": 0.5675675675675675,
+    "lower": 0.40914180972226494,
+    "upper": 0.7132828082261852
+   },
+   "loop_self:plain:ctfd_attempts": {
+    "n": 38,
+    "k": 37,
+    "share": 0.9736842105263158,
+    "lower": 0.8650512375427469,
+    "upper": 0.9953394123657999
+   },
+   "loop_self:plain:ctfd_hint_unlock": {
+    "n": 39,
+    "k": 38,
+    "share": 0.9743589743589743,
+    "lower": 0.8681900970295746,
+    "upper": 0.9954592969492493
+   }
+  },
+  "mysql": {
+   "single:plain:oscar_voucher_single": {
+    "n": 43,
+    "k": 42,
+    "share": 0.9767441860465116,
+    "lower": 0.8794100644159603,
+    "upper": 0.9958829127712101
+   },
+   "single:plain:oscar_voucher_customer": {
+    "n": 43,
+    "k": 42,
+    "share": 0.9767441860465116,
+    "lower": 0.8794100644159603,
+    "upper": 0.9958829127712101
+   },
+   "single:plain:ctfd_attempts": {
+    "n": 33,
+    "k": 33,
+    "share": 1.0,
+    "lower": 0.8957300009841286,
+    "upper": 1.0
+   },
+   "single:plain:ctfd_hint_unlock": {
+    "n": 31,
+    "k": 31,
+    "share": 1.0,
+    "lower": 0.889744602991977,
+    "upper": 1.0
+   },
+   "single:hint:oscar_voucher_single": {
+    "n": 41,
+    "k": 29,
+    "share": 0.7073170731707317,
+    "lower": 0.5552053215279548,
+    "upper": 0.823908124468579
+   },
+   "single:hint:oscar_voucher_customer": {
+    "n": 41,
+    "k": 29,
+    "share": 0.7073170731707317,
+    "lower": 0.5552053215279548,
+    "upper": 0.823908124468579
+   },
+   "single:hint:ctfd_attempts": {
+    "n": 34,
+    "k": 33,
+    "share": 0.9705882352941176,
+    "lower": 0.850844265661214,
+    "upper": 0.9947890937814032
+   },
+   "single:hint:ctfd_hint_unlock": {
+    "n": 26,
+    "k": 24,
+    "share": 0.9230769230769231,
+    "lower": 0.7585844605936842,
+    "upper": 0.9786449117205875
+   },
+   "loop_seq:plain:oscar_voucher_single": {
+    "n": 44,
+    "k": 43,
+    "share": 0.9772727272727273,
+    "lower": 0.8819229018613074,
+    "upper": 0.9959767479844505
+   },
+   "loop_seq:plain:oscar_voucher_customer": {
+    "n": 44,
+    "k": 43,
+    "share": 0.9772727272727273,
+    "lower": 0.8819229018613074,
+    "upper": 0.9959767479844505
+   },
+   "loop_seq:plain:ctfd_attempts": {
+    "n": 44,
+    "k": 44,
+    "share": 1.0,
+    "lower": 0.9197043950765085,
+    "upper": 0.9999999999999998
+   },
+   "loop_seq:plain:ctfd_hint_unlock": {
+    "n": 48,
+    "k": 48,
+    "share": 1.0,
+    "lower": 0.9258998692515198,
+    "upper": 1.0
+   },
+   "loop_conc:plain:oscar_voucher_single": {
+    "n": 43,
+    "k": 2,
+    "share": 0.046511627906976744,
+    "lower": 0.012849259978574553,
+    "upper": 0.1545549812336292
+   },
+   "loop_conc:plain:oscar_voucher_customer": {
+    "n": 43,
+    "k": 2,
+    "share": 0.046511627906976744,
+    "lower": 0.012849259978574553,
+    "upper": 0.1545549812336292
+   },
+   "loop_conc:plain:ctfd_attempts": {
+    "n": 36,
+    "k": 18,
+    "share": 0.5,
+    "lower": 0.3447432529897015,
+    "upper": 0.6552567470102985
+   },
+   "loop_conc:plain:ctfd_hint_unlock": {
+    "n": 32,
+    "k": 22,
+    "share": 0.6875,
+    "lower": 0.5143332156108199,
+    "upper": 0.8204745844774249
+   },
+   "loop_self:plain:oscar_voucher_single": {
+    "n": 37,
+    "k": 21,
+    "share": 0.5675675675675675,
+    "lower": 0.40914180972226494,
+    "upper": 0.7132828082261852
+   },
+   "loop_self:plain:oscar_voucher_customer": {
+    "n": 37,
+    "k": 21,
+    "share": 0.5675675675675675,
+    "lower": 0.40914180972226494,
+    "upper": 0.7132828082261852
+   },
+   "loop_self:plain:ctfd_attempts": {
+    "n": 37,
+    "k": 37,
+    "share": 1.0,
+    "lower": 0.9059421728185314,
+    "upper": 1.0
+   },
+   "loop_self:plain:ctfd_hint_unlock": {
+    "n": 34,
+    "k": 31,
+    "share": 0.9117647058823529,
+    "lower": 0.770395132949397,
+    "upper": 0.969534056562893
+   }
+  }
+ },
+ "e3": {
+  "spread": {
+   "postgresql": {
+    "runs": 3560,
+    "units": 712,
+    "median_cv": 0.0107,
+    "p90_cv": 0.0983,
+    "runs_with_exceptions": 944,
+    "max_failed_share": 0.1339,
+    "refused_connections": 0,
+    "runs_violating": 0,
+    "hung": 1,
+    "setup_errors": 0
+   },
+   "mysql": {
+    "runs": 3340,
+    "units": 668,
+    "median_cv": 0.0287,
+    "p90_cv": 0.2039,
+    "runs_with_exceptions": 370,
+    "max_failed_share": 0.2156,
+    "refused_connections": 0,
+    "runs_violating": 0,
+    "hung": 0,
+    "setup_errors": 0
+   }
+  },
+  "relative_throughput": {
+   "postgresql": {
+    "uniform-c32:loop_repaired:default": {
+     "programs": 71,
+     "median": 0.995,
+     "q1": 0.549,
+     "q3": 1.05,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32:reference:replay": {
+     "programs": 14,
+     "median": 0.944,
+     "q1": 0.52,
+     "q3": 0.984,
+     "failed_median": 0.0,
+     "failed_max": 0.0094,
+     "programs_with_failed": 6
+    },
+    "uniform-c32:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.779,
+     "q1": 0.465,
+     "q3": 0.977,
+     "failed_median": 0.0002,
+     "failed_max": 0.0338,
+     "programs_with_failed": 36
+    },
+    "uniform-c32-noindex:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32-noindex:reference:replay": {
+     "programs": 14,
+     "median": 0.138,
+     "q1": 0.126,
+     "q3": 0.911,
+     "failed_median": 0.1008,
+     "failed_max": 0.1295,
+     "programs_with_failed": 10
+    },
+    "uniform-c8:loop_repaired:default": {
+     "programs": 71,
+     "median": 0.974,
+     "q1": 0.603,
+     "q3": 1.083,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 1
+    },
+    "uniform-c8:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c8:reference:replay": {
+     "programs": 14,
+     "median": 0.893,
+     "q1": 0.775,
+     "q3": 0.95,
+     "failed_median": 0.0,
+     "failed_max": 0.0001,
+     "programs_with_failed": 5
+    },
+    "uniform-c8:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.846,
+     "q1": 0.742,
+     "q3": 0.935,
+     "failed_median": 0.0,
+     "failed_max": 0.0016,
+     "programs_with_failed": 28
+    },
+    "zipf099-c32:loop_repaired:default": {
+     "programs": 71,
+     "median": 0.936,
+     "q1": 0.692,
+     "q3": 1.021,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "zipf099-c32:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "zipf099-c32:reference:replay": {
+     "programs": 14,
+     "median": 0.729,
+     "q1": 0.208,
+     "q3": 0.839,
+     "failed_median": 0.0021,
+     "failed_max": 0.0991,
+     "programs_with_failed": 12
+    },
+    "zipf099-c32:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.53,
+     "q1": 0.379,
+     "q3": 0.763,
+     "failed_median": 0.0137,
+     "failed_max": 0.1278,
+     "programs_with_failed": 60
+    },
+    "zipf099-c8:loop_repaired:default": {
+     "programs": 71,
+     "median": 0.992,
+     "q1": 0.701,
+     "q3": 1.062,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 1
+    },
+    "zipf099-c8:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "zipf099-c8:reference:replay": {
+     "programs": 14,
+     "median": 0.741,
+     "q1": 0.654,
+     "q3": 0.885,
+     "failed_median": 0.0,
+     "failed_max": 0.0031,
+     "programs_with_failed": 6
+    },
+    "zipf099-c8:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.751,
+     "q1": 0.615,
+     "q3": 0.847,
+     "failed_median": 0.0,
+     "failed_max": 0.0134,
+     "programs_with_failed": 43
+    }
+   },
+   "mysql": {
+    "uniform-c32:loop_repaired:default": {
+     "programs": 60,
+     "median": 0.938,
+     "q1": 0.808,
+     "q3": 1.008,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 4
+    },
+    "uniform-c32:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32:reference:replay": {
+     "programs": 14,
+     "median": 0.873,
+     "q1": 0.779,
+     "q3": 1.013,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.86,
+     "q1": 0.725,
+     "q3": 0.975,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32-noindex:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c32-noindex:reference:replay": {
+     "programs": 14,
+     "median": 0.882,
+     "q1": 0.43,
+     "q3": 0.936,
+     "failed_median": 0.0,
+     "failed_max": 0.2084,
+     "programs_with_failed": 4
+    },
+    "uniform-c8:loop_repaired:default": {
+     "programs": 60,
+     "median": 0.936,
+     "q1": 0.695,
+     "q3": 1.164,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 3
+    },
+    "uniform-c8:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c8:reference:replay": {
+     "programs": 14,
+     "median": 0.839,
+     "q1": 0.751,
+     "q3": 1.051,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "uniform-c8:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.883,
+     "q1": 0.682,
+     "q3": 1.066,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "zipf099-c32:loop_repaired:default": {
+     "programs": 60,
+     "median": 0.953,
+     "q1": 0.74,
+     "q3": 1.024,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 4
+    },
+    "zipf099-c32:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "zipf099-c32:reference:replay": {
+     "programs": 14,
+     "median": 0.837,
+     "q1": 0.685,
+     "q3": 0.899,
+     "failed_median": 0.0,
+     "failed_max": 0.0078,
+     "programs_with_failed": 2
+    },
+    "zipf099-c32:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.802,
+     "q1": 0.431,
+     "q3": 0.977,
+     "failed_median": 0.008,
+     "failed_max": 0.0397,
+     "programs_with_failed": 46
+    },
+    "zipf099-c8:loop_repaired:default": {
+     "programs": 60,
+     "median": 0.945,
+     "q1": 0.797,
+     "q3": 1.007,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 1
+    },
+    "zipf099-c8:reference:default": {
+     "programs": 14,
+     "median": 1.0,
+     "q1": 1.0,
+     "q3": 1.0,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 0
+    },
+    "zipf099-c8:reference:replay": {
+     "programs": 14,
+     "median": 0.834,
+     "q1": 0.694,
+     "q3": 0.883,
+     "failed_median": 0.0,
+     "failed_max": 0.0,
+     "programs_with_failed": 2
+    },
+    "zipf099-c8:replay_restored:replay": {
+     "programs": 72,
+     "median": 0.875,
+     "q1": 0.566,
+     "q3": 1.015,
+     "failed_median": 0.0,
+     "failed_max": 0.0019,
+     "programs_with_failed": 22
+    }
+   }
+  }
+ }
+}

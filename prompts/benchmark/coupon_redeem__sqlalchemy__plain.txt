@@ -1,0 +1,39 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Coupon(Base):
+    __tablename__ = "coupons"
+    code: Mapped[str] = mapped_column(Text, primary_key=True)
+    max_uses: Mapped[int] = mapped_column(Integer)
+
+
+class Redemption(Base):
+    __tablename__ = "redemptions"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    code: Mapped[str] = mapped_column(Text, ForeignKey("coupons.code"))
+    user_id: Mapped[int] = mapped_column(Integer)
+```
+
+Import them with `from app_models import Coupon, Redemption`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `redeem(code, user_id)`. A user may redeem a given coupon at most once, and a coupon may be redeemed at most `max_uses` times in total. If the user has already redeemed the coupon, return {"ok": False, "error": "already_redeemed"}. If the coupon has reached `max_uses` redemptions, return {"ok": False, "error": "exhausted"}. Otherwise record the redemption and return {"ok": True, "redemption_id": <new redemption id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def redeem(Session, code, user_id) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

@@ -1,0 +1,41 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses Django 5.2 with PostgreSQL through psycopg 3, with the default database settings (autocommit on, ATOMIC_REQUESTS off). The models already exist in the module `shop.models`:
+
+```python
+from django.db import models
+
+
+class Event(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    name = models.TextField()
+    capacity = models.IntegerField()
+
+    class Meta:
+        db_table = "events"
+        managed = False
+
+
+class Reservation(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    event = models.ForeignKey(Event, on_delete=models.PROTECT, db_column="event_id")
+    seats = models.IntegerField()
+
+    class Meta:
+        db_table = "reservations"
+        managed = False
+```
+
+Import them with `from shop.models import Event, Reservation`. The view calls the function once per HTTP request.
+
+Task: Implement `reserve(event_id, seats)`. The reservations of an event may hold at most `capacity` seats in total. If the event does not exist, return {"ok": False, "error": "unknown_event"}. If the reservation would exceed the capacity, return {"ok": False, "error": "sold_out"}. Otherwise record a reservation for `seats` seats and return {"ok": True, "reservation_id": <new reservation id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def reserve(event_id, seats) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

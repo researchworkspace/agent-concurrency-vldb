@@ -1,0 +1,293 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application is CTFd 3.8.9, a capture-the-flag platform, on Flask 2.1 with Flask-SQLAlchemy 2.5 (SQLAlchemy 1.4) and PostgreSQL through psycopg2, in users mode (no teams). The models exist in the module `CTFd.models` (excerpts from CTFd's source):
+
+```python
+class Challenges(db.Model):
+    __tablename__ = "challenges"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    description = db.Column(db.Text)
+    attribution = db.Column(db.Text)
+    connection_info = db.Column(db.Text)
+    next_id = db.Column(db.Integer, db.ForeignKey("challenges.id", ondelete="SET NULL"))
+    max_attempts = db.Column(db.Integer, default=0)
+    value = db.Column(db.Integer)
+    category = db.Column(db.String(80))
+    type = db.Column(db.String(80))
+    state = db.Column(db.String(80), nullable=False, default="visible")
+    logic = db.Column(db.String(80), nullable=False, default="any")
+    initial = db.Column(db.Integer, nullable=True)
+    minimum = db.Column(db.Integer, nullable=True)
+    decay = db.Column(db.Integer, nullable=True)
+    position = db.Column(db.Integer, nullable=False, default=0)
+    function = db.Column(db.String(32), default="static")
+
+    requirements = db.Column(db.JSON)
+
+# ...
+
+class Hints(db.Model):
+    __tablename__ = "hints"
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80))
+    type = db.Column(db.String(80), default="standard")
+    challenge_id = db.Column(
+        db.Integer, db.ForeignKey("challenges.id", ondelete="CASCADE")
+    )
+    content = db.Column(db.Text)
+    cost = db.Column(db.Integer, default=0)
+    requirements = db.Column(db.JSON)
+
+    __mapper_args__ = {"polymorphic_identity": "standard", "polymorphic_on": type}
+
+# ...
+
+class Awards(db.Model):
+    __tablename__ = "awards"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id", ondelete="CASCADE"))
+    type = db.Column(db.String(80), default="standard")
+    name = db.Column(db.String(80))
+    description = db.Column(db.Text)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    value = db.Column(db.Integer)
+    category = db.Column(db.String(80))
+    icon = db.Column(db.Text)
+    requirements = db.Column(db.JSON)
+
+    user = db.relationship("Users", foreign_keys="Awards.user_id", lazy="select")
+    team = db.relationship("Teams", foreign_keys="Awards.team_id", lazy="select")
+
+    __mapper_args__ = {"polymorphic_identity": "standard", "polymorphic_on": type}
+
+    @hybrid_property
+    def account_id(self):
+        from CTFd.utils import get_config
+
+        user_mode = get_config("user_mode")
+        if user_mode == "teams":
+            return self.team_id
+        elif user_mode == "users":
+            return self.user_id
+
+# ...
+
+class Flags(db.Model):
+    __tablename__ = "flags"
+    id = db.Column(db.Integer, primary_key=True)
+    challenge_id = db.Column(
+        db.Integer, db.ForeignKey("challenges.id", ondelete="CASCADE")
+    )
+    type = db.Column(db.String(80))
+    content = db.Column(db.Text)
+    data = db.Column(db.Text)
+
+    __mapper_args__ = {"polymorphic_on": type}
+
+# ...
+
+class Users(db.Model):
+    __tablename__ = "users"
+    __table_args__ = (db.UniqueConstraint("id", "oauth_id"), {})
+    # Core attributes
+    id = db.Column(db.Integer, primary_key=True)
+    oauth_id = db.Column(db.Integer, unique=True)
+    # User names are not constrained to be unique to allow for official/unofficial teams.
+    name = db.Column(db.String(128))
+    password = db.Column(db.String(128))
+    email = db.Column(db.String(128), unique=True)
+    type = db.Column(db.String(80))
+    secret = db.Column(db.String(128))
+
+    # Supplementary attributes
+    website = db.Column(db.String(128))
+    affiliation = db.Column(db.String(128))
+    country = db.Column(db.String(32))
+    bracket_id = db.Column(
+        db.Integer, db.ForeignKey("brackets.id", ondelete="SET NULL")
+    )
+    hidden = db.Column(db.Boolean, default=False)
+    banned = db.Column(db.Boolean, default=False)
+    verified = db.Column(db.Boolean, default=False)
+    language = db.Column(db.String(32), nullable=True, default=None)
+    change_password = db.Column(db.Boolean, default=False)
+
+    # Relationship for Teams
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
+
+# ...
+
+    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+    __mapper_args__ = {"polymorphic_identity": "user", "polymorphic_on": type}
+
+# ...
+
+    @hybrid_property
+    def account_id(self):
+        from CTFd.utils import get_config
+
+        user_mode = get_config("user_mode")
+        if user_mode == "teams":
+            return self.team_id
+        elif user_mode == "users":
+            return self.id
+
+    @hybrid_property
+    def account(self):
+        from CTFd.utils import get_config
+
+        user_mode = get_config("user_mode")
+        if user_mode == "teams":
+            return self.team
+        elif user_mode == "users":
+            return self
+
+# ...
+
+    @cache.memoize()
+    def get_score(self, admin=False):
+        score = db.func.sum(Challenges.value).label("score")
+        user = (
+            db.session.query(Solves.user_id, score)
+            .join(Users, Solves.user_id == Users.id)
+            .join(Challenges, Solves.challenge_id == Challenges.id)
+            .filter(Users.id == self.id)
+        )
+
+        award_score = db.func.sum(Awards.value).label("award_score")
+        award = db.session.query(award_score).filter_by(user_id=self.id)
+
+        if not admin:
+            freeze = Configs.query.filter_by(key="freeze").first()
+            if freeze and freeze.value:
+                freeze = int(freeze.value)
+                freeze = datetime.datetime.utcfromtimestamp(freeze)
+                user = user.filter(Solves.date < freeze)
+                award = award.filter(Awards.date < freeze)
+
+        user = user.group_by(Solves.user_id).first()
+        award = award.first()
+
+        if user and award:
+            return int(user.score or 0) + int(award.award_score or 0)
+        elif user:
+            return int(user.score or 0)
+        elif award:
+            return int(award.award_score or 0)
+        else:
+            return 0
+
+# ...
+
+class Submissions(db.Model):
+    __tablename__ = "submissions"
+    id = db.Column(db.Integer, primary_key=True)
+    challenge_id = db.Column(
+        db.Integer, db.ForeignKey("challenges.id", ondelete="CASCADE")
+    )
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id", ondelete="CASCADE"))
+    ip = db.Column(db.String(46))
+    provided = db.Column(db.Text)
+    type = db.Column(db.String(32))
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+
+# ...
+
+    __mapper_args__ = {"polymorphic_on": type}
+
+    @hybrid_property
+    def account_id(self):
+        from CTFd.utils import get_config
+
+        user_mode = get_config("user_mode")
+        if user_mode == "teams":
+            return self.team_id
+        elif user_mode == "users":
+            return self.user_id
+
+# ...
+
+class Solves(Submissions):
+    __tablename__ = "solves"
+    __table_args__ = (
+        db.UniqueConstraint("challenge_id", "user_id"),
+        db.UniqueConstraint("challenge_id", "team_id"),
+        {},
+    )
+    id = db.Column(
+        None, db.ForeignKey("submissions.id", ondelete="CASCADE"), primary_key=True
+    )
+    challenge_id = column_property(
+        db.Column(db.Integer, db.ForeignKey("challenges.id", ondelete="CASCADE")),
+        Submissions.challenge_id,
+    )
+    user_id = column_property(
+        db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE")),
+        Submissions.user_id,
+    )
+    team_id = column_property(
+        db.Column(db.Integer, db.ForeignKey("teams.id", ondelete="CASCADE")),
+        Submissions.team_id,
+    )
+
+    user = db.relationship("Users", foreign_keys="Solves.user_id", lazy="select")
+    team = db.relationship("Teams", foreign_keys="Solves.team_id", lazy="select")
+    challenge = db.relationship(
+        "Challenges", foreign_keys="Solves.challenge_id", lazy="select"
+    )
+
+    __mapper_args__ = {"polymorphic_identity": "correct"}
+
+
+class Fails(Submissions):
+    __mapper_args__ = {"polymorphic_identity": "incorrect"}
+
+
+# ...
+
+class Unlocks(db.Model):
+    __tablename__ = "unlocks"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
+    team_id = db.Column(db.Integer, db.ForeignKey("teams.id", ondelete="CASCADE"))
+    target = db.Column(db.Integer)
+    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    type = db.Column(db.String(32))
+
+    __mapper_args__ = {"polymorphic_on": type}
+
+    @hybrid_property
+    def account_id(self):
+        from CTFd.utils import get_config
+
+        user_mode = get_config("user_mode")
+        if user_mode == "teams":
+            return self.team_id
+        elif user_mode == "users":
+            return self.user_id
+
+    def __repr__(self):
+        return "<Unlock %r>" % self.id
+
+
+class HintUnlocks(Unlocks):
+    __mapper_args__ = {"polymorphic_identity": "hints"}
+```
+
+Import them with `from CTFd.models import db, Awards, Challenges, HintUnlocks, Hints, Solves, Unlocks, Users`. The function runs inside the Flask application and request context of an API request and uses `db.session`, as CTFd's API does. The API calls the function once per HTTP request.
+
+Task: Implement `unlock_hint(user_id, hint_id)`, which lets a user buy a hint with points. If the user has already unlocked the hint, return {"ok": False, "error": "already_unlocked"}. If the hint's `cost` is greater than the user's current score, return {"ok": False, "error": "insufficient_score"}. Otherwise record a `HintUnlocks` row for the user with `target` set to the hint's id, and an `Awards` row for the user whose `value` is minus the hint's cost and whose `name`, `description` and `category` are the hint's, as CTFd does, and return {"ok": True, "unlock_id": <new unlock id>}. A user's score is the sum of the values of the challenges they have solved plus the sum of their awards.
+
+Write a Python module that defines exactly this function:
+
+```python
+def unlock_hint(user_id, hint_id) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

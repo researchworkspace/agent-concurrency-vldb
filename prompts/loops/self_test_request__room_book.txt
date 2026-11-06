@@ -1,0 +1,16 @@
+Your module passes the application's sequential tests. In production, `book` is called by many concurrent HTTP requests. Write a concurrency test for it: a Python function `test_concurrency()` that raises `AssertionError` when `book` misbehaves under concurrent requests.
+
+The test runs in a harness that already provides these functions (do not import or define them):
+
+- `fresh_database()`: drops and recreates the application's tables, empty. The harness calls it before every run; call it again if your test needs a clean state.
+- `db_execute(sql, params=None)`: runs one SQL statement on the application's PostgreSQL database and returns the result rows as a list of tuples (an empty list for statements that return no rows). Use it to insert the rows your test needs and to inspect the database afterwards. Parameters use the `%s` placeholder.
+- `run_concurrently(requests)`: `requests` is a list of at most 16 dicts of keyword arguments for `book`. Each request is sent to your current module by its own client process, and all requests are released at the same moment. It returns a list with, for each request in order, the dict that `book` returned, or `{"exception": "<ExceptionClass>: <message>"}` if it raised.
+
+The tables are:
+
+```sql
+CREATE TABLE rooms (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL);
+CREATE TABLE bookings (id BIGSERIAL PRIMARY KEY, room_id BIGINT NOT NULL REFERENCES rooms(id), start_hour INTEGER NOT NULL, end_hour INTEGER NOT NULL);
+```
+
+The harness runs your test 10 times. Respond with the test in a single ```python code block that defines `test_concurrency()`.

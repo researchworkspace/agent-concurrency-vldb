@@ -1,0 +1,226 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application is django-oscar 4.2.1, an e-commerce framework, on Django 5.2 with PostgreSQL through psycopg 3, with the default database settings (autocommit on, ATOMIC_REQUESTS off). The concrete models `Voucher`, `VoucherApplication` and `Order` inherit these abstract models unchanged (excerpts from Oscar's source):
+
+```python
+class AbstractVoucher(models.Model):
+    """
+    A voucher.  This is simply a link to a collection of offers.
+
+    Note that there are three possible "usage" modes:
+    (a) Single use
+    (b) Multi-use
+    (c) Once per customer
+
+    Oscar enforces those modes by creating VoucherApplication
+    instances when a voucher is used for an order.
+    """
+
+    name = models.CharField(
+        _("Name"),
+        max_length=128,
+        unique=True,
+        help_text=_(
+            "This will be shown in the checkout"
+            " and basket once the voucher is"
+            " entered"
+        ),
+    )
+    code = models.CharField(
+        _("Code"),
+        max_length=128,
+        db_index=True,
+        unique=True,
+        help_text=_("Case insensitive / No spaces allowed"),
+    )
+    offers = models.ManyToManyField(
+        "offer.ConditionalOffer",
+        related_name="vouchers",
+        verbose_name=_("Offers"),
+        limit_choices_to={"offer_type": "Voucher"},
+    )
+
+    SINGLE_USE, MULTI_USE, ONCE_PER_CUSTOMER = (
+        "Single use",
+        "Multi-use",
+        "Once per customer",
+    )
+    USAGE_CHOICES = (
+        (SINGLE_USE, _("Can be used once by one customer")),
+        (MULTI_USE, _("Can be used multiple times by multiple customers")),
+        (ONCE_PER_CUSTOMER, _("Can only be used once per customer")),
+    )
+    usage = models.CharField(
+        _("Usage"), max_length=128, choices=USAGE_CHOICES, default=MULTI_USE
+    )
+
+    start_datetime = models.DateTimeField(_("Start datetime"), db_index=True)
+    end_datetime = models.DateTimeField(_("End datetime"), db_index=True)
+
+    # Reporting information. Not used to enforce any consumption limits.
+    num_basket_additions = models.PositiveIntegerField(
+        _("Times added to basket"), default=0
+    )
+    num_orders = models.PositiveIntegerField(_("Times on orders"), default=0)
+    total_discount = models.DecimalField(
+        _("Total discount"), decimal_places=2, max_digits=12, default=Decimal("0.00")
+    )
+
+# ...
+
+    def is_active(self, test_datetime=None):
+        """
+        Test whether this voucher is currently active.
+        """
+        test_datetime = test_datetime or timezone.now()
+        return self.start_datetime <= test_datetime <= self.end_datetime
+
+    def is_expired(self):
+        """
+        Test whether this voucher has passed its expiration date
+        """
+        now = timezone.now()
+        return self.end_datetime < now
+
+    def is_available_to_user(self, user=None):
+        """
+        Test whether this voucher is available to the passed user.
+
+        Returns a tuple of a boolean for whether it is successful, and a
+        availability message.
+        """
+        is_available, message = False, ""
+        if self.usage == self.SINGLE_USE:
+            is_available = not self.applications.exists()
+            if not is_available:
+                message = _("This voucher has already been used")
+        elif self.usage == self.MULTI_USE:
+            is_available = True
+        elif self.usage == self.ONCE_PER_CUSTOMER:
+            if not user.is_authenticated:
+                is_available = False
+                message = _("This voucher is only available to signed in users")
+            else:
+                is_available = not self.applications.filter(
+                    voucher=self, user=user
+                ).exists()
+                if not is_available:
+                    message = _(
+                        "You have already used this voucher in a previous order"
+                    )
+        return is_available, message
+
+    def is_available_for_basket(self, basket):
+        """
+        Tests whether this voucher is available to the passed basket.
+
+        Returns a tuple of a boolean for whether it is successful, and a
+        availability message.
+        """
+        is_available, message = self.is_available_to_user(user=basket.owner)
+        if not is_available:
+            return False, message
+
+        is_available, message = False, _(
+            "This voucher is not available for this basket"
+        )
+        for offer in self.offers.all():
+            if offer.is_condition_satisfied(basket=basket):
+                is_available = True
+                message = ""
+                break
+        return is_available, message
+
+    def record_usage(self, order, user):
+        """
+        Records a usage of this voucher in an order.
+        """
+        if user.is_authenticated:
+            self.applications.create(voucher=self, order=order, user=user)
+        else:
+            self.applications.create(voucher=self, order=order)
+        self.num_orders += 1
+        self.save()
+
+    record_usage.alters_data = True
+
+# ...
+
+class AbstractVoucherApplication(models.Model):
+    """
+    For tracking how often a voucher has been used in an order.
+
+    This is used to enforce the voucher usage mode in
+    Voucher.is_available_to_user, and created in Voucher.record_usage.
+    """
+
+    voucher = models.ForeignKey(
+        "voucher.Voucher",
+        on_delete=models.CASCADE,
+        related_name="applications",
+        verbose_name=_("Voucher"),
+    )
+
+    # It is possible for an anonymous user to apply a voucher so we need to
+    # allow the user to be nullable
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        verbose_name=_("User"),
+    )
+    order = models.ForeignKey(
+        "order.Order", on_delete=models.CASCADE, verbose_name=_("Order")
+    )
+    date_created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+# ...
+
+class AbstractOrder(models.Model):
+    """
+    The main order model
+    """
+
+    number = models.CharField(
+        _("Order number"), max_length=128, db_index=True, unique=True
+    )
+
+    # We track the site that each order is placed within
+    site = models.ForeignKey(
+        "sites.Site", verbose_name=_("Site"), null=True, on_delete=models.SET_NULL
+    )
+
+    basket = models.ForeignKey(
+        "basket.Basket",
+        verbose_name=_("Basket"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+    )
+
+    # Orders can be placed without the user authenticating so we don't always
+    # have a customer ID.
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        related_name="orders",
+        null=True,
+        blank=True,
+        verbose_name=_("User"),
+        on_delete=models.SET_NULL,
+    )
+```
+
+Load the models as Oscar does, with `from oscar.core.loading import get_model`, for example `Voucher = get_model("voucher", "Voucher")`. The user model is Django's `django.contrib.auth.models.User`. The checkout calls the function once per HTTP request.
+
+Task: Implement `apply_voucher(order_number, code)`, which the checkout calls just after an order is placed to record that the order used a voucher. Look up the order by its number and the voucher by its code. If there is no voucher with this code, return {"ok": False, "error": "unknown_voucher"}. If the voucher is not active now, return {"ok": False, "error": "inactive"}. If the voucher is not available to the order's user under its usage mode, return {"ok": False, "error": "unavailable"}. An order without a user was placed by an anonymous customer; Oscar's voucher methods take Django's `AnonymousUser` (`django.contrib.auth.models`) for such a customer, as the checkout's `request.user` is. Otherwise record the usage as Oscar does, with a `VoucherApplication` for the order and its user and one more in the voucher's `num_orders`, and return {"ok": True}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def apply_voucher(order_number, code) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models. The endpoint receives many concurrent requests in production; make sure it stays correct under concurrent execution.
+
+Respond with the complete module in a single ```python code block.

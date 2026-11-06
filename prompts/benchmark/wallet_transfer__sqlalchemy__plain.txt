@@ -1,0 +1,33 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Wallet(Base):
+    __tablename__ = "wallets"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    owner: Mapped[str] = mapped_column(Text)
+    balance: Mapped[int] = mapped_column(Integer)
+```
+
+Import them with `from app_models import Wallet`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `transfer(from_wallet_id, to_wallet_id, amount)`. Move `amount` from one wallet to another; no balance may go negative. If either wallet does not exist, return {"ok": False, "error": "unknown_wallet"}. If the source balance is below `amount`, return {"ok": False, "error": "insufficient_funds"}. Otherwise debit the source, credit the destination, and return {"ok": True}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def transfer(Session, from_wallet_id, to_wallet_id, amount) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

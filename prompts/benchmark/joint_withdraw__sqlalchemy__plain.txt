@@ -1,0 +1,40 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Account(Base):
+    __tablename__ = "bank_accounts"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    customer_id: Mapped[int] = mapped_column(Integer)
+    balance: Mapped[int] = mapped_column(Integer)
+
+
+class Withdrawal(Base):
+    __tablename__ = "withdrawals"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    account_id: Mapped[int] = mapped_column(BigInteger, ForeignKey("bank_accounts.id"))
+    amount: Mapped[int] = mapped_column(Integer)
+```
+
+Import them with `from app_models import Account, Withdrawal`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `withdraw(account_id, amount)`. A customer may hold several accounts. One account may go negative, but the total balance of all the customer's accounts must never go below zero. If the account does not exist, return {"ok": False, "error": "unknown_account"}. If the withdrawal would make the customer's total balance negative, return {"ok": False, "error": "insufficient_funds"}. Otherwise reduce the account's balance by `amount`, record the withdrawal, and return {"ok": True, "withdrawal_id": <new withdrawal id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def withdraw(Session, account_id, amount) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

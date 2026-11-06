@@ -1,0 +1,41 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses Django 5.2 with PostgreSQL through psycopg 3, with the default database settings (autocommit on, ATOMIC_REQUESTS off). The models already exist in the module `shop.models`:
+
+```python
+from django.db import models
+
+
+class Account(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    customer_id = models.IntegerField()
+    balance = models.IntegerField()
+
+    class Meta:
+        db_table = "bank_accounts"
+        managed = False
+
+
+class Withdrawal(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    account = models.ForeignKey(Account, on_delete=models.PROTECT, db_column="account_id")
+    amount = models.IntegerField()
+
+    class Meta:
+        db_table = "withdrawals"
+        managed = False
+```
+
+Import them with `from shop.models import Account, Withdrawal`. The view calls the function once per HTTP request.
+
+Task: Implement `withdraw(account_id, amount)`. A customer may hold several accounts. One account may go negative, but the total balance of all the customer's accounts must never go below zero. If the account does not exist, return {"ok": False, "error": "unknown_account"}. If the withdrawal would make the customer's total balance negative, return {"ok": False, "error": "insufficient_funds"}. Otherwise reduce the account's balance by `amount`, record the withdrawal, and return {"ok": True, "withdrawal_id": <new withdrawal id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def withdraw(account_id, amount) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.

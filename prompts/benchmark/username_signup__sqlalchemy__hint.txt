@@ -1,0 +1,33 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses SQLAlchemy 2.0 (ORM) with PostgreSQL through psycopg 3. The models already exist in the module `app_models`:
+
+```python
+from sqlalchemy import BigInteger, Boolean, ForeignKey, Integer, Text
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+
+class Base(DeclarativeBase):
+    pass
+
+
+class Member(Base):
+    __tablename__ = "members"
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True)
+    username: Mapped[str] = mapped_column(Text)
+    email: Mapped[str] = mapped_column(Text)
+```
+
+Import them with `from app_models import Member`. The function receives `Session`, a `sqlalchemy.orm.sessionmaker` bound to the application's engine with default settings; open sessions from it. The web layer calls the function once per HTTP request.
+
+Task: Implement `register(username, email)`. Usernames must be unique. If a member with this username already exists, return {"ok": False, "error": "username_taken"}. Otherwise create the member and return {"ok": True, "member_id": <new member id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def register(Session, username, email) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models. The endpoint receives many concurrent requests in production; make sure it stays correct under concurrent execution.
+
+Respond with the complete module in a single ```python code block.

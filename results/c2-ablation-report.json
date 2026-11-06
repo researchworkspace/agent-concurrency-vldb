@@ -1,0 +1,552 @@
+{
+ "mysql": {
+  "categories": {
+   "reference buggy": {
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.6333,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 16,
+     "with_exceptions": 1
+    },
+    "programs": 16,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.6500000000000004,
+     "median_time_ratio": 1.12,
+     "restored": 0,
+     "violating": 16,
+     "with_exceptions": 1
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 3.035,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 3.146,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request serializable": {
+     "kept_unrestored": 16,
+     "median_success_share": 0.51875,
+     "median_time_ratio": 1.265,
+     "restored": 0,
+     "violating": 0,
+     "with_exceptions": 16
+    },
+    "serializable retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.174,
+     "restored": 10,
+     "violating": 6,
+     "with_exceptions": 0
+    }
+   },
+   "reference correct": {
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.0,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "programs": 16,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.185,
+     "restored": 15,
+     "violating": 1,
+     "with_exceptions": 0
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.244,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.244,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request serializable": {
+     "kept_unrestored": 4,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.124,
+     "restored": 12,
+     "violating": 0,
+     "with_exceptions": 4
+    },
+    "serializable retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.025,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    }
+   },
+   "retry restored": {
+    "c1_agreement_request_replay": 651,
+    "c1_request_replay_restored": 651,
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.6333,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 651,
+     "with_exceptions": 45
+    },
+    "programs": 651,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.6333,
+     "median_time_ratio": 1.08,
+     "restored": 0,
+     "violating": 651,
+     "with_exceptions": 46
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.857,
+     "restored": 651,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 122,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.719,
+     "restored": 529,
+     "violating": 0,
+     "with_exceptions": 122
+    },
+    "request serializable": {
+     "kept_unrestored": 619,
+     "median_success_share": 0.6,
+     "median_time_ratio": 1.26,
+     "restored": 32,
+     "violating": 0,
+     "with_exceptions": 617
+    },
+    "serializable retry": {
+     "kept_unrestored": 3,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.537,
+     "restored": 648,
+     "violating": 0,
+     "with_exceptions": 0
+    }
+   },
+   "retry unrestored": {
+    "c1_agreement_request_replay": 167,
+    "c1_request_replay_restored": 166,
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 3.825,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 167,
+     "with_exceptions": 1
+    },
+    "programs": 167,
+    "request default": {
+     "kept_unrestored": 1,
+     "median_success_share": 3.8,
+     "median_time_ratio": 1.099,
+     "restored": 0,
+     "violating": 166,
+     "with_exceptions": 1
+    },
+    "request replay": {
+     "kept_unrestored": 1,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.768,
+     "restored": 166,
+     "violating": 0,
+     "with_exceptions": 1
+    },
+    "request retry": {
+     "kept_unrestored": 157,
+     "median_success_share": 0.6,
+     "median_time_ratio": 1.208,
+     "restored": 10,
+     "violating": 0,
+     "with_exceptions": 9
+    },
+    "request serializable": {
+     "kept_unrestored": 165,
+     "median_success_share": 0.6,
+     "median_time_ratio": 1.206,
+     "restored": 2,
+     "violating": 0,
+     "with_exceptions": 28
+    },
+    "serializable retry": {
+     "kept_unrestored": 165,
+     "median_success_share": 0.6,
+     "median_time_ratio": 1.148,
+     "restored": 2,
+     "violating": 0,
+     "with_exceptions": 2
+    }
+   },
+   "retry violating": {
+    "c1_agreement_request_replay": 103,
+    "c1_request_replay_restored": 99,
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 3.8625,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 103,
+     "with_exceptions": 0
+    },
+    "programs": 103,
+    "request default": {
+     "kept_unrestored": 1,
+     "median_success_share": 3.9,
+     "median_time_ratio": 1.062,
+     "restored": 3,
+     "violating": 99,
+     "with_exceptions": 2
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.803,
+     "restored": 99,
+     "violating": 4,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 21,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.759,
+     "restored": 78,
+     "violating": 4,
+     "with_exceptions": 4
+    },
+    "request serializable": {
+     "kept_unrestored": 98,
+     "median_success_share": 0.525,
+     "median_time_ratio": 1.238,
+     "restored": 3,
+     "violating": 2,
+     "with_exceptions": 81
+    },
+    "serializable retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 3.85,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 103,
+     "with_exceptions": 0
+    }
+   }
+  },
+  "first_restoring_arm": {
+   "none": 5,
+   "request default": 3,
+   "request replay": 176,
+   "request retry": 84,
+   "request serializable": 3,
+   "serializable retry": 650
+  },
+  "results": 953,
+  "server_version": "9.7.4"
+ },
+ "postgresql": {
+  "categories": {
+   "reference buggy": {
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.30665,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 16,
+     "with_exceptions": 0
+    },
+    "programs": 16,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.4,
+     "median_time_ratio": 1.043,
+     "restored": 0,
+     "violating": 16,
+     "with_exceptions": 0
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.308,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.343,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request serializable": {
+     "kept_unrestored": 16,
+     "median_success_share": 0.5375,
+     "median_time_ratio": 0.962,
+     "restored": 0,
+     "violating": 0,
+     "with_exceptions": 16
+    },
+    "serializable retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.794,
+     "restored": 10,
+     "violating": 6,
+     "with_exceptions": 0
+    }
+   },
+   "reference correct": {
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.0,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "programs": 16,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.072,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.128,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.052,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request serializable": {
+     "kept_unrestored": 16,
+     "median_success_share": 0.6616500000000001,
+     "median_time_ratio": 0.987,
+     "restored": 0,
+     "violating": 0,
+     "with_exceptions": 16
+    },
+    "serializable retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.155,
+     "restored": 16,
+     "violating": 0,
+     "with_exceptions": 0
+    }
+   },
+   "retry restored": {
+    "c1_agreement_request_replay": 654,
+    "c1_request_replay_restored": 654,
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.9208500000000002,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 654,
+     "with_exceptions": 64
+    },
+    "programs": 654,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.1125,
+     "median_time_ratio": 0.956,
+     "restored": 0,
+     "violating": 654,
+     "with_exceptions": 62
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.202,
+     "restored": 654,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 10,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.141,
+     "restored": 644,
+     "violating": 0,
+     "with_exceptions": 0
+    },
+    "request serializable": {
+     "kept_unrestored": 635,
+     "median_success_share": 0.55,
+     "median_time_ratio": 1.009,
+     "restored": 19,
+     "violating": 0,
+     "with_exceptions": 628
+    },
+    "serializable retry": {
+     "kept_unrestored": 10,
+     "median_success_share": 1.0,
+     "median_time_ratio": 1.917,
+     "restored": 644,
+     "violating": 0,
+     "with_exceptions": 0
+    }
+   },
+   "retry unrestored": {
+    "c1_agreement_request_replay": 188,
+    "c1_request_replay_restored": 186,
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.94375,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 188,
+     "with_exceptions": 1
+    },
+    "programs": 188,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.01875,
+     "median_time_ratio": 0.995,
+     "restored": 0,
+     "violating": 188,
+     "with_exceptions": 1
+    },
+    "request replay": {
+     "kept_unrestored": 1,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.346,
+     "restored": 186,
+     "violating": 1,
+     "with_exceptions": 1
+    },
+    "request retry": {
+     "kept_unrestored": 140,
+     "median_success_share": 0.8833,
+     "median_time_ratio": 1.429,
+     "restored": 47,
+     "violating": 1,
+     "with_exceptions": 3
+    },
+    "request serializable": {
+     "kept_unrestored": 181,
+     "median_success_share": 0.5333,
+     "median_time_ratio": 1.055,
+     "restored": 7,
+     "violating": 0,
+     "with_exceptions": 166
+    },
+    "serializable retry": {
+     "kept_unrestored": 176,
+     "median_success_share": 0.57085,
+     "median_time_ratio": 1.038,
+     "restored": 12,
+     "violating": 0,
+     "with_exceptions": 1
+    }
+   },
+   "retry violating": {
+    "c1_agreement_request_replay": 107,
+    "c1_request_replay_restored": 105,
+    "default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.0125,
+     "median_time_ratio": 1.0,
+     "restored": 0,
+     "violating": 107,
+     "with_exceptions": 0
+    },
+    "programs": 107,
+    "request default": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.0125,
+     "median_time_ratio": 1.031,
+     "restored": 4,
+     "violating": 103,
+     "with_exceptions": 0
+    },
+    "request replay": {
+     "kept_unrestored": 0,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.326,
+     "restored": 105,
+     "violating": 2,
+     "with_exceptions": 0
+    },
+    "request retry": {
+     "kept_unrestored": 9,
+     "median_success_share": 1.0,
+     "median_time_ratio": 2.104,
+     "restored": 96,
+     "violating": 2,
+     "with_exceptions": 0
+    },
+    "request serializable": {
+     "kept_unrestored": 107,
+     "median_success_share": 0.65,
+     "median_time_ratio": 1.098,
+     "restored": 0,
+     "violating": 0,
+     "with_exceptions": 106
+    },
+    "serializable retry": {
+     "kept_unrestored": 0,
+     "median_success_share": 2.65,
+     "median_time_ratio": 1.031,
+     "restored": 0,
+     "violating": 107,
+     "with_exceptions": 0
+    }
+   }
+  },
+  "first_restoring_arm": {
+   "none": 4,
+   "request default": 4,
+   "request replay": 140,
+   "request retry": 140,
+   "request serializable": 5,
+   "serializable retry": 656
+  },
+  "results": 981,
+  "server_version": "16.15"
+ }
+}

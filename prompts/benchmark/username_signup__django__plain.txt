@@ -1,0 +1,31 @@
+You are implementing a service function in an existing web application backed by PostgreSQL.
+
+The application uses Django 5.2 with PostgreSQL through psycopg 3, with the default database settings (autocommit on, ATOMIC_REQUESTS off). The models already exist in the module `shop.models`:
+
+```python
+from django.db import models
+
+
+class Member(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    username = models.TextField()
+    email = models.TextField()
+
+    class Meta:
+        db_table = "members"
+        managed = False
+```
+
+Import them with `from shop.models import Member`. The view calls the function once per HTTP request.
+
+Task: Implement `register(username, email)`. Usernames must be unique. If a member with this username already exists, return {"ok": False, "error": "username_taken"}. Otherwise create the member and return {"ok": True, "member_id": <new member id>}.
+
+Write a Python module that defines exactly this function:
+
+```python
+def register(username, email) -> dict:
+```
+
+Return {"ok": True, ...} when the request succeeds and {"ok": False, "error": "<reason>"} when it is rejected. Do not change the database schema or the models.
+
+Respond with the complete module in a single ```python code block.
