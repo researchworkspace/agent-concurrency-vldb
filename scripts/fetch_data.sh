@@ -10,7 +10,7 @@ import json, sys
 hit = json.load(sys.stdin)["hits"]["hits"][0]
 print(next(f["links"]["self"] for f in hit["files"] if f["key"] == sys.argv[1]))' "$NAME")
 echo "Downloading $URL"
-curl -fL -o "$DEST/$NAME" "$URL"
+curl -fsSL -o "$DEST/$NAME" "$URL"
 tar -xzf "$DEST/$NAME" -C "$DEST"
 (cd "$DEST/agent-concurrency-vldb-data" && shasum -a 256 -c SHA256SUMS --quiet)
 echo "Data in $DEST/agent-concurrency-vldb-data (checksums match)"
