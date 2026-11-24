@@ -1,6 +1,6 @@
 """Figures 4-7 of the paper.
 
-Usage: python make_figures.py c1-paper-numbers.json OUT_DIR [PREVIEW_DIR] [--c2 c2-paper-numbers.json]
+Usage: python make_figures.py numbers-benchmark.json OUT_DIR [PREVIEW_DIR] [--extended numbers-extended.json]
 """
 
 import json
@@ -16,10 +16,10 @@ from matplotlib.patches import PathPatch, Rectangle
 from matplotlib.path import Path as MPath
 
 argv = sys.argv[1:]
-c2_numbers = None
-if "--c2" in argv:
-    i = argv.index("--c2")
-    c2_numbers = json.loads(Path(argv[i + 1]).read_text("utf-8"))
+ext_numbers = None
+if "--extended" in argv:
+    i = argv.index("--extended")
+    ext_numbers = json.loads(Path(argv[i + 1]).read_text("utf-8"))
     del argv[i : i + 2]
 numbers = json.loads(Path(argv[0]).read_text("utf-8"))
 out = Path(argv[1])
@@ -129,8 +129,8 @@ def band(ax, x0, x1, y0a, y0b, y1a, y1b, color):
 def alluvial():
     trans = dict(numbers["transitions"])
     panels = [("loop_seq", "Sequential-test loop"), ("loop_conc", "Concurrency-test loop")]
-    if c2_numbers is not None:
-        trans["loop_self"] = c2_numbers["e1_transitions"]["loop_self"]
+    if ext_numbers is not None:
+        trans["loop_self"] = ext_numbers["e1_transitions"]["loop_self"]
         panels.append(("loop_self", "Self-test loop"))
     fig, axes = plt.subplots(1, len(panels), figsize=(TEXT_W, 1.9), gridspec_kw={"wspace": 0.42})
     gap, w = 14, 0.07
@@ -229,7 +229,7 @@ def remedies():
 
 
 def remedies_column():
-    rem, apps = numbers["remedies"], c2_numbers["e2_remedies"]
+    rem, apps = numbers["remedies"], ext_numbers["e2_remedies"]
     rows = []
     for e, el in (("postgresql", "PostgreSQL"), ("mysql", "MySQL")):
         r = rem[e]
@@ -316,7 +316,7 @@ def contention():
 
 prevalence()
 alluvial()
-if c2_numbers is not None:
+if ext_numbers is not None:
     remedies_column()
 else:
     remedies()

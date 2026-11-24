@@ -13,16 +13,16 @@ FAILED=0
 
 echo "== 1. code hashes"
 if [[ -n "$DATA" ]]; then
-    python3 -I "$ROOT/scripts/verify_hashes.py" "$DATA"/agent-concurrency-c{0,1,2}-main || FAILED=1
+    python3 -I "$ROOT/scripts/verify_hashes.py" "$DATA"/{base,benchmark,extended} || FAILED=1
 else
     python3 -I "$ROOT/scripts/verify_hashes.py" || FAILED=1
 fi
 
 echo "== 2. benchmark references"
 for ENGINE in postgresql mysql; do
-    "$PY" -I "$ROOT/src/c1_run.py" run --engine "$ENGINE" --output "$OUT/references-$ENGINE" \
+    "$PY" -I "$ROOT/src/checks.py" run --engine "$ENGINE" --output "$OUT/references-$ENGINE" \
         --bin "$BIN" --scratch "$SCRATCH" > "$OUT/references-$ENGINE.txt"
-    "$PY" -I "$ROOT/src/c1_run.py" summary --output "$OUT/references-$ENGINE" \
+    "$PY" -I "$ROOT/src/checks.py" summary --output "$OUT/references-$ENGINE" \
         --save "$OUT/references-$ENGINE-summary.json" > /dev/null
     "$PY" -I -c 'import json, sys
 r = json.load(open(sys.argv[1]))
@@ -36,7 +36,7 @@ if [[ -n "$DATA" ]]; then
     echo "== 3. released programs, re-checked on PostgreSQL"
     python3 -I "$ROOT/scripts/sample_check.py" make --data "$DATA" --engine postgresql \
         --out "$OUT/sample-postgresql"
-    "$PY" -I "$ROOT/src/c1_run.py" run --engine postgresql --output "$OUT/sample-postgresql-run" \
+    "$PY" -I "$ROOT/src/checks.py" run --engine postgresql --output "$OUT/sample-postgresql-run" \
         --bin "$BIN" --scratch "$SCRATCH" --generations "$OUT/sample-postgresql" \
         > "$OUT/sample-postgresql-run.txt"
     python3 -I "$ROOT/scripts/sample_check.py" compare --data "$DATA" --engine postgresql \
@@ -48,10 +48,10 @@ if [[ -x "$PREFIX/oscar/bin/python" && -x "$PREFIX/ctfd/bin/python" ]]; then
     for APP in oscar ctfd; do
         APY="$PREFIX/$APP/bin/python"
         for ENGINE in postgresql mysql; do
-            "$APY" -I "$ROOT/src/c2_appharness.py" run --app "$APP" --engine "$ENGINE" \
+            "$APY" -I "$ROOT/src/app_harness.py" run --app "$APP" --engine "$ENGINE" \
                 --output "$OUT/references-$APP-$ENGINE" --bin "$BIN" --scratch "$SCRATCH" \
                 --ctfd-source "$PREFIX/ctfd-src" > "$OUT/references-$APP-$ENGINE.txt" 2>&1
-            "$APY" -I "$ROOT/src/c2_appharness.py" gates --output "$OUT/references-$APP-$ENGINE" \
+            "$APY" -I "$ROOT/src/app_harness.py" gates --output "$OUT/references-$APP-$ENGINE" \
                 | tail -1 | tee "$OUT/references-$APP-$ENGINE-gates.json" | python3 -I -c 'import json, sys
 g = json.loads(sys.stdin.read())
 ok = g["correct_clean"] and not g["buggy_missed"] and not g["correct_failing"]

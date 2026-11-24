@@ -14,27 +14,27 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-import c0_tasks as tasks
-import c1_run
+import checks
+import tasks
 
 MODELS = ("qwen38_27b", "devstral2_24b", "gptoss120b", "seedcoder8b")
 
 
 def released(data: Path, engine: str) -> dict[str, dict]:
-    folder = data / "agent-concurrency-c1-main" / f"harness-{engine}"
-    return {r["id"]: r for r in c1_run.load_results(folder)}
+    folder = data / "benchmark" / f"harness-{engine}"
+    return {r["id"]: r for r in checks.load_results(folder)}
 
 
 def verdicts(plan: dict, r: dict) -> dict[str, tuple[bool, bool]]:
     optimum = tasks.TASKS[r["task"]]["concurrent"]["optimal_successes"]
     trials = plan[f"{r['source']}_trials"]
     share = plan["restored_success_share"]
-    return {arm: (c1_run.violates(c), c1_run.restored_at(c, trials, optimum, share))
+    return {arm: (checks.violates(c), checks.restored_at(c, trials, optimum, share))
             for arm, c in r.get("concurrent", {}).items()}
 
 
 def make(args: argparse.Namespace) -> None:
-    plan = c1_run.configuration()
+    plan = checks.configuration()
     data, out = Path(args.data), Path(args.out)
     rows = released(data, args.engine)
     chosen: dict[str, list[str]] = {}
@@ -46,7 +46,7 @@ def make(args: argparse.Namespace) -> None:
                 or r["model"] not in MODELS or not r["functional"]["passed"]
                 or r["condition"] != "plain"):
             continue
-        default = c1_run.default_arm(plan, args.engine, r["framework"])
+        default = checks.default_arm(plan, args.engine, r["framework"])
         c = r["concurrent"][default]
         if c["violating_trials"] < 15 or not verdicts(plan, r)["request replay"][1]:
             continue
@@ -56,17 +56,17 @@ def make(args: argparse.Namespace) -> None:
     for task, ids in sorted(chosen.items()):
         for rid in ids:
             _, model, stem = rid.split(":", 2)
-            source = data / "agent-concurrency-c1-main" / "generations" / model / "generations" / f"{stem}.json"
+            source = data / "benchmark" / "generations" / model / "generations" / f"{stem}.json"
             shutil.copy2(source, out / "generations" / f"{stem}__{model}.json")
             print(f"{task:16} {rid}")
     print(f"{sum(map(len, chosen.values()))} programs in {out / 'generations'}")
 
 
 def compare(args: argparse.Namespace) -> None:
-    plan = c1_run.configuration()
+    plan = checks.configuration()
     rows = released(Path(args.data), args.engine)
     differ = checked = 0
-    for r in c1_run.load_results(Path(args.run)):
+    for r in checks.load_results(Path(args.run)):
         if r["source"] != "generated":
             continue
         stem = r["id"].split(":", 2)[2].removesuffix(f"__{r['model']}")

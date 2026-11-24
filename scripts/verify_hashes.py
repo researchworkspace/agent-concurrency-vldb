@@ -15,23 +15,21 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 
 FIELDS = {
-    "plan_sha256": ("c0-plan.json", "c1-plan.json", "c2-plan.json"),
-    "c1_plan_sha256": ("c1-plan.json",),
-    "c2_plan_sha256": ("c2-plan.json",),
-    "tasks_sha256": ("c0_tasks.py",),
-    "harness_sha256": ("c0_harness.py",),
-    "runner_sha256": ("c1_run.py",),
-    "mysql_sha256": ("c1_mysql.py",),
-    "generator_sha256": ("c0_generate.py", "c1_generate.py"),
-    "feedback_sha256": ("c1_feedback.py",),
-    "c2_generator_sha256": ("c2_generate.py",),
-    "c2_feedback_sha256": ("c2_feedback.py",),
-    "c2_selftest_sha256": ("c2_selftest.py",),
-    "c2_apps_sha256": ("c2_apps.py",),
-    "apps_sha256": ("c2_apps.py",),
-    "c2_appharness_sha256": ("c2_appharness.py",),
-    "appharness_sha256": ("c2_appharness.py",),
-    "load_sha256": ("c2_load.py",),
+    "plan_sha256": ("plan-base.json", "plan-benchmark.json", "plan-extended.json"),
+    "benchmark_plan_sha256": ("plan-benchmark.json",),
+    "extended_plan_sha256": ("plan-extended.json",),
+    "tasks_sha256": ("tasks.py",),
+    "harness_sha256": ("harness.py",),
+    "runner_sha256": ("checks.py",),
+    "mysql_sha256": ("mysql_server.py",),
+    "generator_sha256": ("generate_base.py", "generate.py"),
+    "feedback_sha256": ("loop_feedback.py",),
+    "extended_generator_sha256": ("generate_extended.py",),
+    "loop_checker_sha256": ("loop_checker.py",),
+    "selftest_sha256": ("selftest.py",),
+    "apps_sha256": ("apps.py",),
+    "appharness_sha256": ("app_harness.py",),
+    "load_sha256": ("sustained_load.py",),
 }
 
 

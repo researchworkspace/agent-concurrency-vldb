@@ -11,14 +11,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-import c0_tasks as tasks
-import c2_apps as apps
-import c2_selftest as selftest
+import apps
+import selftest
+import tasks
 
 
 def main() -> None:
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "prompts"
-    runs = json.loads((ROOT / "src" / "c2-plan.json").read_text("utf-8"))["loop_self"]["self_test_runs"]
+    runs = json.loads((ROOT / "src" / "plan-extended.json").read_text("utf-8"))["loop_self"]["self_test_runs"]
     written = 0
     for task in tasks.TASKS:
         for framework in tasks.FRAMEWORKS:

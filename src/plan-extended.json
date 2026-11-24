@@ -1,0 +1,270 @@
+{
+ "version": "agent-concurrency-extended",
+ "benchmark_version": "agent-concurrency-benchmark",
+ "generation": {
+  "prefill_chunk": {
+   "note": "gpt-oss uses eager attention (benchmark plan); its prefill ran out of memory on an 80 GB H100 near 6k input tokens. Inputs above the threshold are prefilled in chunks through the KV cache; the benchmark stage's gpt-oss inputs (at most 3,819 tokens) are below it and unaffected.",
+   "models": [
+    "gptoss120b",
+    "gptoss20b"
+   ],
+   "above_input_tokens": 4096,
+   "chunk_tokens": 1024
+  }
+ },
+ "loop_self": {
+  "engine": "postgresql",
+  "condition": "plain",
+  "max_repair_rounds": 3,
+  "self_test_runs": 10,
+  "request_timeout_seconds": 60,
+  "run_timeout_seconds": 900,
+  "round_seed_offset": 1000,
+  "test_seed_offset": 500
+ },
+ "loop_conc_my": {
+  "engine": "mysql",
+  "condition": "plain",
+  "note": "The benchmark plan's loop_conc (max_repair_rounds, concurrent_trials, round_seed_offset from plan-benchmark.json) with the checker on MySQL at the framework's effective default"
+ },
+ "load": {
+  "note": "Descriptive. Throughput counts completed requests: those that end without an error, including the application's own rejections; a request whose error survives the arm's retries or replays is failed, and each table cell also reports the failed share.",
+  "seed": "c2-load-v1",
+  "tasks": [
+   "stock_purchase",
+   "coupon_redeem",
+   "username_signup",
+   "joint_withdraw",
+   "seat_reserve",
+   "room_book",
+   "wallet_transfer"
+  ],
+  "excluded": {
+   "oncall_leave": "global invariant over the doctors table; no independent keys"
+  },
+  "per_cell": 6,
+  "conditions": [
+   {
+    "name": "uniform-c8",
+    "theta": 0,
+    "clients": 8
+   },
+   {
+    "name": "uniform-c32",
+    "theta": 0,
+    "clients": 32
+   },
+   {
+    "name": "zipf099-c8",
+    "theta": 0.99,
+    "clients": 8
+   },
+   {
+    "name": "zipf099-c32",
+    "theta": 0.99,
+    "clients": 32
+   },
+   {
+    "name": "uniform-c32-noindex",
+    "theta": 0,
+    "clients": 32,
+    "indexes": false,
+    "populations": [
+     "reference"
+    ]
+   }
+  ],
+  "repetitions": 5,
+  "warmup_seconds": 5,
+  "measure_seconds": 30,
+  "batch": 20,
+  "setup_timeout_seconds": 120,
+  "drain_timeout_seconds": 120,
+  "workloads": {
+   "stock_purchase": {
+    "products": 1000,
+    "stock": 1000000
+   },
+   "coupon_redeem": {
+    "coupons": 1000,
+    "max_uses": 100,
+    "users": 100000
+   },
+   "username_signup": {
+    "usernames": 1000000
+   },
+   "joint_withdraw": {
+    "customers": 500,
+    "balance": 1000000,
+    "amount": 1
+   },
+   "seat_reserve": {
+    "events": 1000,
+    "capacity": 1000000,
+    "max_seats": 4
+   },
+   "room_book": {
+    "rooms": 200,
+    "hours": 100000,
+    "max_length": 3
+   },
+   "wallet_transfer": {
+    "wallets": 1000,
+    "balance": 1000000,
+    "amount": 1
+   }
+  },
+  "indexes": {
+   "note": "Secondary indexes a deployment of the many-key tables has: Django indexes every ForeignKey column, and lookups by username or customer need an index. Non-unique, so uniqueness is still enforced by the code. MySQL already indexes foreign-key columns.",
+   "postgresql": {
+    "stock_purchase": [
+     "CREATE INDEX orders_product_id ON orders (product_id)"
+    ],
+    "coupon_redeem": [
+     "CREATE INDEX redemptions_code ON redemptions (code)"
+    ],
+    "username_signup": [
+     "CREATE INDEX members_username ON members (username)"
+    ],
+    "joint_withdraw": [
+     "CREATE INDEX bank_accounts_customer_id ON bank_accounts (customer_id)",
+     "CREATE INDEX withdrawals_account_id ON withdrawals (account_id)"
+    ],
+    "seat_reserve": [
+     "CREATE INDEX reservations_event_id ON reservations (event_id)"
+    ],
+    "room_book": [
+     "CREATE INDEX bookings_room_id ON bookings (room_id)"
+    ],
+    "wallet_transfer": []
+   },
+   "mysql": {
+    "stock_purchase": [],
+    "coupon_redeem": [],
+    "username_signup": [
+     "CREATE INDEX members_username ON members (username(64))"
+    ],
+    "joint_withdraw": [
+     "CREATE INDEX bank_accounts_customer_id ON bank_accounts (customer_id)"
+    ],
+    "seat_reserve": [],
+    "room_book": [],
+    "wallet_transfer": []
+   }
+  },
+  "server_settings": {
+   "note": "Overrides of the benchmark plan's server settings for sustained load (E3). Clients open one connection per request (Django's default CONN_MAX_AGE=0, SQLAlchemy NullPool, as in the benchmark checks). At several thousand requests per second MySQL retires closed connections more slowly than new ones arrive, so E3 raises its connection limit and thread cache; each result records how many connections the server refused.",
+   "postgresql": {},
+   "mysql": {
+    "max_connections": "4000",
+    "thread_cache_size": "512"
+   }
+  },
+  "main_shards": 20
+ },
+ "apps": {
+  "note": "E2 (apps.py, app_harness.py). Handlers are what the model writes; each rule is checked as a benchmark task. Single-shot generation of every handler in both conditions with the benchmark's samples; then loop_seq, loop_conc and loop_self from the plain answers, on PostgreSQL. The harness runs every program on both engines in the benchmark's arms.",
+  "handlers": [
+   "ctfd_attempts",
+   "ctfd_hint_unlock",
+   "oscar_voucher"
+  ],
+  "releases": {
+   "django-oscar": "4.2.1",
+   "CTFd": "3.8.9"
+  },
+  "conditions": [
+   "plain",
+   "hint"
+  ],
+  "loop_modes": {
+   "loop_seq": {
+    "engine": "postgresql",
+    "concurrent": false
+   },
+   "loop_conc": {
+    "engine": "postgresql",
+    "concurrent": true
+   },
+   "loop_self": {
+    "engine": "postgresql"
+   }
+  }
+ },
+ "apps_environment": {
+  "oscar": {
+   "note": "A virtual environment over the check environment (system site-packages), with these pins; the check environment is not modified",
+   "packages": [
+    "django-oscar[sorl-thumbnail]==4.2.1",
+    "babel==2.18.0",
+    "django-extra-views==0.16.0",
+    "django-haystack==3.4.0",
+    "django-phonenumber-field==8.5.0",
+    "django-tables2==2.7.0",
+    "django-treebeard==7.0.3",
+    "django-widget-tweaks==1.5.1",
+    "factory_boy==3.3.3",
+    "Faker==40.44.0",
+    "phonenumbers==9.0.42",
+    "pillow==13.0.0",
+    "purl==1.6",
+    "six==1.17.0",
+    "sorl-thumbnail==12.11.0"
+   ]
+  },
+  "ctfd": {
+   "note": "A virtual environment from the check environment's Python with CTFd's pinned requirements.txt at the tag plus psycopg2-binary; a .pth file appends the check environment's site-packages after them",
+   "repository": "https://github.com/CTFd/CTFd.git",
+   "tag": "3.8.9",
+   "commit": "5f345fbaa424e6a22b51addf7f27430927879ae2",
+   "extra": [
+    "psycopg2-binary==2.9.10"
+   ]
+  }
+ },
+ "hypotheses": {
+  "note": "Confirmatory samples and z are the benchmark plan's.",
+  "confirmatory_samples": [
+   102,
+   103,
+   104,
+   105,
+   106,
+   107,
+   108,
+   109
+  ],
+  "confidence_z": 1.959964,
+  "bootstrap": {
+   "replicates": 10000,
+   "seed": "c2-h8-v1"
+  },
+  "h8": {
+   "engine": "postgresql",
+   "closure": 0.5
+  },
+  "h9": {
+   "engine": "postgresql",
+   "share": 0.1,
+   "lower_bound": 0.05
+  },
+  "h10": {
+   "engine": "mysql",
+   "min_implementations": 30,
+   "share_max": 0.1,
+   "upper_bound_max": 0.15
+  },
+  "h11": {
+   "engine": "postgresql",
+   "condition": "plain",
+   "rules": 3,
+   "min_rule_implementations": 8,
+   "share": 0.25,
+   "lower_bound": 0.1
+  },
+  "h12": {
+   "min_implementations": 10,
+   "share": 0.9
+  }
+ }
+}

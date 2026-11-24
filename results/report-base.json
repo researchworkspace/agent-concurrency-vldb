@@ -1,0 +1,1585 @@
+{
+ "cells": {
+  "qwen25coder32b|coupon_redeem|hint": {
+   "functional": 15,
+   "implementations": 20,
+   "not_restored|serializable retry": 2,
+   "raising|read committed": 2,
+   "raising|serializable": 13,
+   "raising|serializable retry": 0,
+   "violating|read committed": 15,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|coupon_redeem|plain": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 5,
+   "raising|read committed": 0,
+   "raising|serializable": 18,
+   "raising|serializable retry": 0,
+   "violating|read committed": 20,
+   "violating|serializable": 0,
+   "violating|serializable retry": 3
+  },
+  "qwen25coder32b|joint_withdraw|hint": {
+   "functional": 12,
+   "implementations": 20,
+   "not_restored|serializable retry": 9,
+   "raising|read committed": 0,
+   "raising|serializable": 3,
+   "raising|serializable retry": 0,
+   "violating|read committed": 12,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|joint_withdraw|plain": {
+   "functional": 9,
+   "implementations": 20,
+   "not_restored|serializable retry": 6,
+   "raising|read committed": 0,
+   "raising|serializable": 3,
+   "raising|serializable retry": 0,
+   "violating|read committed": 9,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|oncall_leave|hint": {
+   "functional": 19,
+   "implementations": 20,
+   "not_restored|serializable retry": 10,
+   "raising|read committed": 0,
+   "raising|serializable": 9,
+   "raising|serializable retry": 0,
+   "violating|read committed": 19,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|oncall_leave|plain": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 3,
+   "raising|read committed": 0,
+   "raising|serializable": 17,
+   "raising|serializable retry": 0,
+   "violating|read committed": 20,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|room_book|hint": {
+   "functional": 16,
+   "implementations": 20,
+   "not_restored|serializable retry": 4,
+   "raising|read committed": 0,
+   "raising|serializable": 12,
+   "raising|serializable retry": 0,
+   "violating|read committed": 16,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|room_book|plain": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 13,
+   "raising|read committed": 0,
+   "raising|serializable": 7,
+   "raising|serializable retry": 0,
+   "violating|read committed": 20,
+   "violating|serializable": 10,
+   "violating|serializable retry": 10
+  },
+  "qwen25coder32b|seat_reserve|hint": {
+   "functional": 10,
+   "implementations": 20,
+   "not_restored|serializable retry": 1,
+   "raising|read committed": 0,
+   "raising|serializable": 9,
+   "raising|serializable retry": 0,
+   "violating|read committed": 7,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|seat_reserve|plain": {
+   "functional": 8,
+   "implementations": 20,
+   "not_restored|serializable retry": 2,
+   "raising|read committed": 0,
+   "raising|serializable": 6,
+   "raising|serializable retry": 0,
+   "violating|read committed": 8,
+   "violating|serializable": 1,
+   "violating|serializable retry": 1
+  },
+  "qwen25coder32b|stock_purchase|hint": {
+   "functional": 18,
+   "implementations": 20,
+   "not_restored|serializable retry": 11,
+   "raising|read committed": 0,
+   "raising|serializable": 7,
+   "raising|serializable retry": 0,
+   "violating|read committed": 0,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|stock_purchase|plain": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 12,
+   "raising|read committed": 0,
+   "raising|serializable": 8,
+   "raising|serializable retry": 0,
+   "violating|read committed": 5,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|username_signup|hint": {
+   "functional": 9,
+   "implementations": 20,
+   "not_restored|serializable retry": 0,
+   "raising|read committed": 0,
+   "raising|serializable": 9,
+   "raising|serializable retry": 0,
+   "violating|read committed": 9,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|username_signup|plain": {
+   "functional": 7,
+   "implementations": 20,
+   "not_restored|serializable retry": 1,
+   "raising|read committed": 0,
+   "raising|serializable": 6,
+   "raising|serializable retry": 0,
+   "violating|read committed": 7,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|wallet_transfer|hint": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 3,
+   "raising|read committed": 0,
+   "raising|serializable": 15,
+   "raising|serializable retry": 0,
+   "violating|read committed": 6,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen25coder32b|wallet_transfer|plain": {
+   "functional": 19,
+   "implementations": 20,
+   "not_restored|serializable retry": 7,
+   "raising|read committed": 0,
+   "raising|serializable": 12,
+   "raising|serializable retry": 0,
+   "violating|read committed": 10,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|coupon_redeem|hint": {
+   "functional": 13,
+   "implementations": 20,
+   "not_restored|serializable retry": 7,
+   "raising|read committed": 0,
+   "raising|serializable": 6,
+   "raising|serializable retry": 0,
+   "violating|read committed": 13,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|coupon_redeem|plain": {
+   "functional": 17,
+   "implementations": 20,
+   "not_restored|serializable retry": 4,
+   "raising|read committed": 0,
+   "raising|serializable": 13,
+   "raising|serializable retry": 0,
+   "violating|read committed": 17,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|joint_withdraw|hint": {
+   "functional": 0,
+   "implementations": 20
+  },
+  "qwen3coder30b|joint_withdraw|plain": {
+   "functional": 0,
+   "implementations": 20
+  },
+  "qwen3coder30b|oncall_leave|hint": {
+   "functional": 17,
+   "implementations": 20,
+   "not_restored|serializable retry": 8,
+   "raising|read committed": 0,
+   "raising|serializable": 9,
+   "raising|serializable retry": 0,
+   "violating|read committed": 17,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|oncall_leave|plain": {
+   "functional": 16,
+   "implementations": 20,
+   "not_restored|serializable retry": 0,
+   "raising|read committed": 0,
+   "raising|serializable": 16,
+   "raising|serializable retry": 0,
+   "violating|read committed": 16,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|room_book|hint": {
+   "functional": 19,
+   "implementations": 20,
+   "not_restored|serializable retry": 6,
+   "raising|read committed": 0,
+   "raising|serializable": 13,
+   "raising|serializable retry": 0,
+   "violating|read committed": 19,
+   "violating|serializable": 4,
+   "violating|serializable retry": 4
+  },
+  "qwen3coder30b|room_book|plain": {
+   "functional": 15,
+   "implementations": 20,
+   "not_restored|serializable retry": 7,
+   "raising|read committed": 0,
+   "raising|serializable": 8,
+   "raising|serializable retry": 0,
+   "violating|read committed": 15,
+   "violating|serializable": 7,
+   "violating|serializable retry": 7
+  },
+  "qwen3coder30b|seat_reserve|hint": {
+   "functional": 10,
+   "implementations": 20,
+   "not_restored|serializable retry": 0,
+   "raising|read committed": 0,
+   "raising|serializable": 10,
+   "raising|serializable retry": 0,
+   "violating|read committed": 10,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|seat_reserve|plain": {
+   "functional": 9,
+   "implementations": 20,
+   "not_restored|serializable retry": 0,
+   "raising|read committed": 0,
+   "raising|serializable": 9,
+   "raising|serializable retry": 0,
+   "violating|read committed": 9,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|stock_purchase|hint": {
+   "functional": 9,
+   "implementations": 20,
+   "not_restored|serializable retry": 9,
+   "raising|read committed": 0,
+   "raising|serializable": 0,
+   "raising|serializable retry": 0,
+   "violating|read committed": 0,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|stock_purchase|plain": {
+   "functional": 14,
+   "implementations": 20,
+   "not_restored|serializable retry": 8,
+   "raising|read committed": 0,
+   "raising|serializable": 6,
+   "raising|serializable retry": 0,
+   "violating|read committed": 3,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|username_signup|hint": {
+   "functional": 3,
+   "implementations": 20,
+   "not_restored|serializable retry": 3,
+   "raising|read committed": 0,
+   "raising|serializable": 0,
+   "raising|serializable retry": 0,
+   "violating|read committed": 3,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|username_signup|plain": {
+   "functional": 10,
+   "implementations": 20,
+   "not_restored|serializable retry": 10,
+   "raising|read committed": 0,
+   "raising|serializable": 0,
+   "raising|serializable retry": 0,
+   "violating|read committed": 10,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|wallet_transfer|hint": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 12,
+   "raising|read committed": 0,
+   "raising|serializable": 1,
+   "raising|serializable retry": 0,
+   "violating|read committed": 0,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  },
+  "qwen3coder30b|wallet_transfer|plain": {
+   "functional": 20,
+   "implementations": 20,
+   "not_restored|serializable retry": 12,
+   "raising|read committed": 0,
+   "raising|serializable": 3,
+   "raising|serializable retry": 0,
+   "violating|read committed": 7,
+   "violating|serializable": 0,
+   "violating|serializable retry": 0
+  }
+ },
+ "gates": {
+  "every_generator_covered": true,
+  "functional_pass": {
+   "qwen25coder32b|django": {
+    "functional": 102,
+    "implementations": 160,
+    "included": true,
+    "rate": 0.6375
+   },
+   "qwen25coder32b|sqlalchemy": {
+    "functional": 140,
+    "implementations": 160,
+    "included": true,
+    "rate": 0.875
+   },
+   "qwen3coder30b|django": {
+    "functional": 93,
+    "implementations": 160,
+    "included": true,
+    "rate": 0.58125
+   },
+   "qwen3coder30b|sqlalchemy": {
+    "functional": 99,
+    "implementations": 160,
+    "included": true,
+    "rate": 0.61875
+   }
+  },
+  "references_separate": true,
+  "retry_restores_correct_references": true
+ },
+ "holds": {
+  "H1": true,
+  "H2": true,
+  "H3": true
+ },
+ "hypotheses": {
+  "H1": {
+   "qwen25coder32b": {
+    "classes": {
+     "check_then_insert": {
+      "k": 27,
+      "lower": 0.8754449685379289,
+      "n": 27,
+      "passes": true,
+      "share": 1.0
+     },
+     "multi_row": {
+      "k": 10,
+      "lower": 0.3170780910485948,
+      "n": 19,
+      "passes": true,
+      "share": 0.5263157894736842
+     },
+     "predicate": {
+      "k": 28,
+      "lower": 0.8793566935605294,
+      "n": 28,
+      "passes": true,
+      "share": 1.0
+     },
+     "write_skew": {
+      "k": 29,
+      "lower": 0.8830301998708162,
+      "n": 29,
+      "passes": true,
+      "share": 1.0
+     }
+    },
+    "holds": true
+   },
+   "qwen3coder30b": {
+    "classes": {
+     "check_then_insert": {
+      "k": 27,
+      "lower": 0.8754449685379289,
+      "n": 27,
+      "passes": true,
+      "share": 1.0
+     },
+     "multi_row": {
+      "k": 7,
+      "lower": 0.18119182312398305,
+      "n": 20,
+      "passes": true,
+      "share": 0.35
+     },
+     "predicate": {
+      "k": 24,
+      "lower": 0.862023793448672,
+      "n": 24,
+      "passes": true,
+      "share": 1.0
+     },
+     "write_skew": {
+      "k": 16,
+      "lower": 0.8063923170025952,
+      "n": 16,
+      "passes": true,
+      "share": 1.0
+     }
+    },
+    "holds": true
+   }
+  },
+  "H2": {
+   "qwen25coder32b": {
+    "classes": {
+     "check_then_insert": {
+      "k": 24,
+      "lower": 0.862023793448672,
+      "n": 24,
+      "passes": true,
+      "share": 1.0
+     },
+     "multi_row": {
+      "k": 6,
+      "lower": 0.14547724402157294,
+      "n": 20,
+      "passes": true,
+      "share": 0.3
+     },
+     "predicate": {
+      "k": 23,
+      "lower": 0.7102409662092933,
+      "n": 26,
+      "passes": true,
+      "share": 0.8846153846153846
+     },
+     "write_skew": {
+      "k": 31,
+      "lower": 0.889744602991977,
+      "n": 31,
+      "passes": true,
+      "share": 1.0
+     }
+    },
+    "holds": true
+   },
+   "qwen3coder30b": {
+    "classes": {
+     "check_then_insert": {
+      "k": 16,
+      "lower": 0.8063923170025952,
+      "n": 16,
+      "passes": true,
+      "share": 1.0
+     },
+     "multi_row": {
+      "k": 0,
+      "lower": 0.0,
+      "n": 20,
+      "passes": false,
+      "share": 0.0
+     },
+     "predicate": {
+      "k": 29,
+      "lower": 0.8830301998708162,
+      "n": 29,
+      "passes": true,
+      "share": 1.0
+     },
+     "write_skew": {
+      "k": 17,
+      "lower": 0.8156818626193444,
+      "n": 17,
+      "passes": true,
+      "share": 1.0
+     }
+    },
+    "holds": true
+   }
+  },
+  "H3": {
+   "holds": true,
+   "k": 113,
+   "lower": 0.30877348626897555,
+   "n": 314,
+   "share": 0.35987261146496813
+  }
+ },
+ "mean_success_share": {
+  "coupon_redeem|read committed": 1.3895384615384614,
+  "coupon_redeem|serializable": 0.766,
+  "coupon_redeem|serializable retry": 0.9495384615384616,
+  "joint_withdraw|read committed": 2.285714285714285,
+  "joint_withdraw|serializable": 0.3333333333333332,
+  "joint_withdraw|serializable retry": 0.5238095238095237,
+  "oncall_leave|read committed": 1.7516203703703699,
+  "oncall_leave|serializable": 0.3368055555555553,
+  "oncall_leave|serializable retry": 0.8060185185185184,
+  "room_book|read committed": 3.3350000000000004,
+  "room_book|serializable": 1.528928571428571,
+  "room_book|serializable retry": 1.8064285714285715,
+  "seat_reserve|read committed": 1.6871621621621622,
+  "seat_reserve|serializable": 0.7462837837837838,
+  "seat_reserve|serializable retry": 1.0125,
+  "stock_purchase|read committed": 1.1836065573770491,
+  "stock_purchase|serializable": 0.48467213114754093,
+  "stock_purchase|serializable retry": 0.6746721311475409,
+  "username_signup|read committed": 2.1836206896551724,
+  "username_signup|serializable": 0.7810344827586208,
+  "username_signup|serializable retry": 0.9103448275862068,
+  "wallet_transfer|read committed": 2.087763713080169,
+  "wallet_transfer|serializable": 0.8658227848101269,
+  "wallet_transfer|serializable retry": 0.9149789029535863
+ },
+ "outcome": "GO",
+ "references": {
+  "reference:coupon_redeem:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.428,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.432,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.43,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   }
+  },
+  "reference:coupon_redeem:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1862
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.79,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1486,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:coupon_redeem:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.438,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1899
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.822,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1469,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:coupon_redeem:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1918
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.734,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1593,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:joint_withdraw:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.6666666666666665,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.3333333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1255,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:joint_withdraw:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.3333333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1235,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:joint_withdraw:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.6566666666666667,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.3333333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1275,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:joint_withdraw:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.3333333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1312,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:oncall_leave:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.1166666666666667,
+    "trial_detection": 0.81,
+    "trials": 100,
+    "violating_trials": 81
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 698
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.34,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1042,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:oncall_leave:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 678
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.3933333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 983,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:oncall_leave:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.22,
+    "trial_detection": 0.86,
+    "trials": 100,
+    "violating_trials": 86
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 699
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.33666666666666667,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1060,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:oncall_leave:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 697
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.3433333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1070,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:room_book:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 3.015,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 3.82,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 3.9,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   }
+  },
+  "reference:room_book:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.5,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 842,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:room_book:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 3.14,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.5,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 881,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:room_book:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 700
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.5,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 845,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:seat_reserve:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.525,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.9475,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.97,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   }
+  },
+  "reference:seat_reserve:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1298
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.755,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1502,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:seat_reserve:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.7675,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1300
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.75,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1506,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:seat_reserve:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1299
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.7525,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1580,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:stock_purchase:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.393,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 889
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.511,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 791,
+    "success_share": 2.157,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   }
+  },
+  "reference:stock_purchase:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1984
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.416,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 2146,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:stock_purchase:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.4,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1824
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.576,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 2390,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:stock_purchase:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 2063
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.337,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 2429,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:username_signup:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.005,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.7775,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.81,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   }
+  },
+  "reference:username_signup:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 851
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.7525,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 798,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:username_signup:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 2.2475,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1190
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.7325,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1027,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:username_signup:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 897
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.75,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 833,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:wallet_transfer:django:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 4.1433333333333335,
+    "trial_detection": 0.98,
+    "trials": 100,
+    "violating_trials": 98
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 577
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 3.3233333333333333,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 489,
+    "success_share": 3.296666666666667,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   }
+  },
+  "reference:wallet_transfer:django:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1302
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.9833333333333333,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1121,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:wallet_transfer:sqlalchemy:buggy": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 4.67,
+    "trial_detection": 1.0,
+    "trials": 100,
+    "violating_trials": 100
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1333
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.8766666666666667,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1178,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  },
+  "reference:wallet_transfer:sqlalchemy:correct": {
+   "functional": true,
+   "read committed": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 0,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable": {
+    "exceptions": {
+     "OperationalError:40001": 1329
+    },
+    "hung": false,
+    "retries": 0,
+    "success_share": 0.8966666666666666,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   },
+   "serializable retry": {
+    "exceptions": {},
+    "hung": false,
+    "retries": 1150,
+    "success_share": 1.0,
+    "trial_detection": 0.0,
+    "trials": 100,
+    "violating_trials": 0
+   }
+  }
+ },
+ "throughput": {
+  "qwen25coder32b": {
+   "calls": 320,
+   "cap_reached": 0,
+   "mean_output_tokens": 279.9125,
+   "output_tokens": 89572,
+   "tokens_per_second": 30.918881601656885
+  },
+  "qwen3coder30b": {
+   "calls": 320,
+   "cap_reached": 0,
+   "mean_output_tokens": 260.065625,
+   "output_tokens": 83221,
+   "tokens_per_second": 13.773750413770275
+  }
+ },
+ "version": "agent-concurrency-base"
+}

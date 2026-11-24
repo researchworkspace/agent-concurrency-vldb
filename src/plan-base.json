@@ -1,0 +1,124 @@
+{
+ "version": "agent-concurrency-base",
+ "tasks": [
+  "stock_purchase",
+  "coupon_redeem",
+  "username_signup",
+  "oncall_leave",
+  "joint_withdraw",
+  "seat_reserve",
+  "room_book",
+  "wallet_transfer"
+ ],
+ "frameworks": [
+  "sqlalchemy",
+  "django"
+ ],
+ "conditions": [
+  "plain",
+  "hint"
+ ],
+ "samples": [
+  100,
+  101,
+  102,
+  103,
+  104,
+  105,
+  106,
+  107,
+  108,
+  109
+ ],
+ "models": {
+  "qwen25coder32b": {
+   "model_id": "Qwen/Qwen2.5-Coder-32B-Instruct",
+   "revision": "381fc969f78efac66bc87ff7ddeadb7e73c218a7"
+  },
+  "qwen3coder30b": {
+   "model_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+   "revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120"
+  }
+ },
+ "sampling": {
+  "temperature": 0.7,
+  "top_p": 0.8,
+  "top_k": 20,
+  "repetition_penalty": 1.05,
+  "max_new_tokens": 2048,
+  "max_input_tokens": 8192,
+  "dtype": "bfloat16",
+  "attention": "sdpa"
+ },
+ "harness": {
+  "workers": 8,
+  "reference_trials": 100,
+  "generated_trials": 20,
+  "trial_timeout_seconds": 120,
+  "arms": {
+   "read committed": {
+    "isolation": "read committed",
+    "retries": 0
+   },
+   "serializable": {
+    "isolation": "serializable",
+    "retries": 0
+   },
+   "serializable retry": {
+    "isolation": "serializable",
+    "retries": 10
+   }
+  },
+  "retry": {
+   "sqlstates": [
+    "40001",
+    "40P01"
+   ],
+   "backoff_base_seconds": 0.002,
+   "backoff_cap_seconds": 0.1
+  },
+  "server_settings": {
+   "fsync": "off",
+   "synchronous_commit": "off",
+   "full_page_writes": "off",
+   "max_connections": "200",
+   "lock_timeout": "10s",
+   "statement_timeout": "20s",
+   "idle_in_transaction_session_timeout": "20s"
+  }
+ },
+ "environment": {
+  "channel": "conda-forge",
+  "packages": [
+   "python=3.11.18",
+   "postgresql=16.15",
+   "sqlalchemy=2.0.54",
+   "django=5.2.17",
+   "psycopg=3.2.3"
+  ]
+ },
+ "decision": {
+  "reference_correct_max_violating_trials": 0,
+  "generated_detection_target": 0.95,
+  "min_functional_pass_rate": 0.3,
+  "min_class_implementations": 8,
+  "confidence_z": 1.959964,
+  "restored_success_share": 0.95,
+  "h1": {
+   "share": 0.25,
+   "lower_bound": 0.1,
+   "classes": 3
+  },
+  "h2": {
+   "share": 0.1,
+   "lower_bound": 0.03,
+   "classes": 2
+  },
+  "h3": {
+   "share": 0.25,
+   "lower_bound": 0.1,
+   "min_implementations": 10
+  }
+ },
+ "maximum_generations_per_task": 400
+}
